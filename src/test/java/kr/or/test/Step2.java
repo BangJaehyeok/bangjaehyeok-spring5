@@ -2,8 +2,8 @@ package kr.or.test;
 /**
  * 이 클래스는 메서드기반의 Step1클래스를 객체기반의 클래스로 변경한 클래스.
  * @author 방재혁
- *
- */
+ * VO = ValueObject 유명한 클래스쓰는방법.
+ */ 
 class MemberVO {
 	//이 클래스는 회원정보를 저장하는 클래스(자료)입니다.
 	private String name;
@@ -56,6 +56,13 @@ public class Step2 {
 	    //출력도 메서드를 바로 호출하지 않고, 외부 클래스에서 객체로 만들어서 메서드를 호출한다.
 	    MemberService memberService = new MemberService();
 	    memberService.printMember(members);
+	    //객체로 만들면, 호출(runtime)시 메모리에 로딩된다. -> 실행끝나면 반환됨.
+	    //외부클래스는 아래처럼 직접접근해서 메서드라는 변수를 실행할수없다.
+	    //MemberService.printMember(members);
+	    //외부클래스로 접근하려면 객체(실행가능한 클래스=메모리 로딩)로 만들어야 가능함.
+	    //static 예약어는 컴파일시 메모리에 로딩(객체로 만듬)이 되게 명시함.
+	    //매번 static으로 만들면 메모리가 가득차서 프로그램실행이 느려지거나 멈춤.
+	    memberService = null;
 	    }
 }
 class MemberService {

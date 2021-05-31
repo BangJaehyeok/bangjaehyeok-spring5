@@ -71,7 +71,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="TBL_BOARD_BNO" id="E8B87682-2DA5-372A-A648-9CE66BB32A0F">
+<Column name="BOARD_BNO" id="E8B87682-2DA5-372A-A648-9CE66BB32A0F">
 <createdBy>User</createdBy>
 <createdTime>2021-05-31 03:46:49 UTC</createdTime>
 <commentInRDBMS><![CDATA[게시물관리고유값 외래키]]></commentInRDBMS>
@@ -81,7 +81,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT019</logicalDatatype>
 <dataTypePrecision>11</dataTypePrecision>
-<ownDataTypeParameters>,11,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="855FBFAB-1545-9707-9B84-027DB208A466" referredColumn="8620C27B-B868-6026-C606-08A902B606D4"/>

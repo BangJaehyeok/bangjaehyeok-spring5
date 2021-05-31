@@ -109,7 +109,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="TBL_BOARD_TYPE_BOARD_TYPE" id="095FBF7A-BF50-BE8B-BD97-C186800A3911">
+<Column name="BOARD_TYPE" id="095FBF7A-BF50-BE8B-BD97-C186800A3911">
 <createdBy>User</createdBy>
 <createdTime>2021-05-31 03:14:26 UTC</createdTime>
 <ownerDesignName>SPRING5</ownerDesignName>

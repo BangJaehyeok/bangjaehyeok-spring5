@@ -12,7 +12,7 @@
 <Column name="BOARD_TYPE" id="48E522DA-62C5-9947-9FB0-9290809CD210">
 <createdBy>User</createdBy>
 <createdTime>2021-05-31 02:16:22 UTC</createdTime>
-<commentInRDBMS><![CDATA[게시판타입(NOTICE,GALLERY, Q&A 등)]]></commentInRDBMS>
+<commentInRDBMS><![CDATA[게시판타입(NOTICE,GALLERY 등)]]></commentInRDBMS>
 <ownerDesignName>SPRING5</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>

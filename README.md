@@ -1,6 +1,14 @@
-#### 20210531(월) 작업예정
+#### 20210531(월) 작업
 - 4장 패키지와 예외처리 실습
 - 스프링프로젝트 ERD 제작 후 게시판UI디자인 적용.
+- 오라클 : 테이블스페이스(TableSpace) = MySQL: 스키마(Scheme) = MS-SQL:데이터베이스(Database)
+- 암호는 apmsetup으로 통일.
+- 오라클 웹용 관리프로그램에서 XE라는 테이블스페이스를 XE사용자로 추가했음.
+- ERD(Entity Relation Diagram)-객체관계그림 : Entity=테이블
+- 데이터 모델 : Model Object를 형상화 시킨것을 모델이라고 함. 데이터베이스를 말함.
+- MVC 스프링프로젝트에서 M이 Model. 스프링프로젝트 구성 중에 데이터베이스를 가리킨다.
+- 참고로 V는 View, jsp를 말한다. C는 Controller고 클래스를 말한다.
+- RDBMS : Relation DataBase Management System(관계형데이터베이스관리시스템)
 
 
 #### 20210528(금) 작업

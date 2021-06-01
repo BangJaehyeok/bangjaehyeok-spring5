@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!-- 페이지언어설정 : Unicode Type Format-8bit 약자  -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 실습</title>
+    <!-- 나눔고딕 외부글꼴 사용하기 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+<!-- ctrl+클릭 하면 이동할 수 있다 -->
+
+<style>
+   /* 03번 선택자 종류 - 자바스크립트에서도 똑같이 이용함
+        범용선택자: *(별표:애스터리스크) - 최초에 body태그쪽에 사용
+        태그선택자: h1, h2, p, div, header, footer, article 등
+        class선택자: .class이름, 특징: 중복사용가능
+        id선택자: #id이름, 특징: 중복사용하면 오동작됨.
+        가상선택자: ::after ::before 등
+        가상요소(element-가상태그): :hover,
+        스타일은 제일 마지막에 쓰는게 적용됨. 위에서부터 해석하는 방식 : 인터프리터형 = 자바스크립트도 인터프리터형 언어
+   */
+   h1 { background-color: skyblue; }
+   /* div * {color: green; } */
+    .box-one, .box-two { background-color: tomato;}
+    #box-four, #box-five { background-color: yellow;}
+    .box-one p:after { content: ' +addadd';}
+    .box-one p::before { content: ' add+ ';}
+    a:hover {color: white;}
+    /* hover : 마우스 올려놓으면 하얗게 변함 */
+    /* 크기단위 font크기, img크기, 유튜브영상크기
+    단위종류 3가지 : ~px, ~em(배수 1.2 2 ), ~rem(root기반배수) */
+    .box-one {
+        font-size: 8px;
+        /* font-size: 1.5em; 
+        font-size: 1.5rem; */
+        /* 웹브라우저 기본 폰트 크기는 16px = 1em  16*1.5 = 1.5em  */
+    }
+    .box-one p {
+        /* 웹브라우저 기본폰트인 16px의 1.5배 아니고, 부모요소의 1.5배(8*1.5배) */
+        font-size: 1.5em;
+        font-size: 1.5rem;
+    }
+    .box-one {
+        width: 200px;
+        height: 200px;
+        background-color: green;
+        padding: 20px; /* 안쪽여백  */
+        margin: 20px 10px 50px 80px; 
+        /* 바깥여백 4가지 방향 12시 시작해서 시계방향 */
+        /* 바깥여백: 2가지 방향 상하/좌우 */
+        margin: 30px 60px;
+        /* 30 상하, 60 좌우 */
+        border: 10px solid black;
+        box-sizing: border-box;
+        /* 가로 가운데 정렬 방법 */
+        margin: 0px;
+        margin: 0 auto; /* 0 상하, auto 좌우 = 가운데정렬이 됨 */
+        margin: 0px;
+        position: fixed;  
+        /* absolute = 자리가 다른 태그와 관련없게 위치를 가짐(절대위치)
+           fixed = 내가 보는 화면의 절대적위치에 고정되어 스크롤내려도 그자리에 고정됨 - 상단고정메뉴(구글은 absolute) */
+        margin-top: 20px;
+        margin-left: 20px;
+        /* position: relative; */
+        
+    }
+    .box-two {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        box-sizing: border-box;
+        /* box-sizing: border-box 는 꼭 필수! 화면 맞춰주는것. */
+    }
+
+
+</style>
+</head>
+<body>
+    <h1>헬로 css</h1>
+    <div class="box-one"><p style="color: white;">
+        <a href="#">상단으로 이동</a> </p></div>
+    <div class="box-two"><a href="#">two two two</a></div>
+    <div class="box-three">three</div>
+    <div id="box-four">four</div>
+    <div id="box-five">five</div>
+    </div>
+
+
+    <!-- 10 크롬 확장프로그램으로 컬러 피커 사용해보기 OK
+        09 구글 폰트 사용하기: 나눔고딕체 사용 OK
+        08 위치: 고정, 절대위치, 상대위치(기준) 
+        07 정렬: 가로 가운데정렬
+        06 테두리크기: 여백(안쪽 패딩, 바깥쪽 마진)
+        05 박스크기: 박스크기에 테두리크기,패딩크기 무시
+        04 크기 단위: px, em(부모영역의 2배), rem(루트영역의 2배)
+        03 선택자 종류 사용
+        02 CSS용어 설명: h${헬로 CSS}*6 계층형 스타일 표(Cascade Style Sheet)
+        처음할때 헷갈려하는 부분 : 계단형 영역선택
+        경로(path:상대경로, 절대경로)
+        01 css 적용하는 3가지 방법 확인, 내부css, 외부css, 인라인css ok -->
+
+     
+        
+
+    <p><span style="color: tomato;">Lorem ipsum</span> dolor sit amet consectetur adipisicing elit. Veniam voluptatem porro asperiores? Aliquid expedita eaque non reiciendis porro consectetur adipisci, quasi qui dignissimos ipsam aspernatur dolor, nemo quia harum deleniti saepe? Voluptas nulla ex, sed optio unde eius iusto officiis aliquam dignissimos distinctio fuga tempore tenetur quasi incidunt aliquid doloremque vero. Ea tenetur magnam dolorum non saepe voluptates deserunt at eius perferendis, atque, exercitationem iusto laborum rem! Ab officia tempora cumque. Porro iusto illo consectetur harum id, a voluptate quos corporis molestiae cumque, blanditiis animi? Qui voluptate quasi nulla, tempora placeat, dolores obcaecati veniam sit iste ex tempore, impedit rem!</p>
+    <p><span style="color: tomato;">Lorem ipsum</span> dolor sit amet consectetur adipisicing elit. Veniam voluptatem porro asperiores? Aliquid expedita eaque non reiciendis porro consectetur adipisci, quasi qui dignissimos ipsam aspernatur dolor, nemo quia harum deleniti saepe? Voluptas nulla ex, sed optio unde eius iusto officiis aliquam dignissimos distinctio fuga tempore tenetur quasi incidunt aliquid doloremque vero. Ea tenetur magnam dolorum non saepe voluptates deserunt at eius perferendis, atque, exercitationem iusto laborum rem! Ab officia tempora cumque. Porro iusto illo consectetur harum id, a voluptate quos corporis molestiae cumque, blanditiis animi? Qui voluptate quasi nulla, tempora placeat, dolores obcaecati veniam sit iste ex tempore, impedit rem!</p>
+    <p><span style="color: tomato;">Lorem ipsum</span> dolor sit amet consectetur adipisicing elit. Veniam voluptatem porro asperiores? Aliquid expedita eaque non reiciendis porro consectetur adipisci, quasi qui dignissimos ipsam aspernatur dolor, nemo quia harum deleniti saepe? Voluptas nulla ex, sed optio unde eius iusto officiis aliquam dignissimos distinctio fuga tempore tenetur quasi incidunt aliquid doloremque vero. Ea tenetur magnam dolorum non saepe voluptates deserunt at eius perferendis, atque, exercitationem iusto laborum rem! Ab officia tempora cumque. Porro iusto illo consectetur harum id, a voluptate quos corporis molestiae cumque, blanditiis animi? Qui voluptate quasi nulla, tempora placeat, dolores obcaecati veniam sit iste ex tempore, impedit rem!</p>
+</body>
+</html>

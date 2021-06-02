@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 테스트</title>
+    <style>
+        header > h1, footer > h7 {text-align: center;}
+        header, nav, section, article, footer {
+            border: 1px dotted black;
+        }
+        nav {display: block; height: 60px;}
+        nav > ul > li {
+            float: left; margin-right: 30px;
+        }
+
+        div.contents {
+            position: relative; overflow: hidden;}
+        section {
+            width: 79%; display: inline-block;}
+        section > article {
+            margin: 10px 30px;
+            border: 1px solid skyblue;
+        }
+        aside {
+            width: 20%; display: inline-block; 
+    right: 0px; position: absolute; height: 100%;}
+    </style>
+</head>
+<body>
+    <!-- HTML5레이아웃 구조에 사용된 태그
+    header, nav(메뉴), section(본체), article, aside, footer -->
+    <header>
+        <h1>header</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#">menu1</a></li>
+            <li><a href="#">menu2</a> </li>
+            <li><a href="#">menu3</a></li>
+        </ul>
+    </nav>
+
+    <div class="contents">
+        <section>
+            <h2>section</h2>
+            <article>
+                <h3>article1</h3>
+            </article>
+            <article>
+                <h4>article2</h4>
+            </article>
+            <article>
+                <h5>article3</h5>
+            </article>
+        </section>
+        <aside>
+            <h6>aside</h6>
+        </aside>
+    </div>
+    <footer>
+        <h7>footer</h7>
+    </footer>
+
+    
+</body>
+</html>

@@ -8,7 +8,7 @@
 
 #### 20210602(수) 작업.
 - views/home/index.jsp 엑박처리도 후 분해(header.jsp, footer.jsp, index.jsp)
-- admin 폴더 만든이후 분해 처리예정.
+- admin 폴더 만든이후 분해함. Junit 실습 후 작업
 - admin부터 프로그램 작업 시작예정.
 - 4장 패키지와 예외처리 실습.
 - ERD제작 -> html제작 -> jsp제작(현재진행: 관리자단부터 작업, 그다음 사용자단 작업),  관리자단에 10개의 기능이 있다면 사용자단에는 5개 그 이하까지만 보여준다. 그래서 관리자단 먼저한다.
@@ -20,6 +20,7 @@
 - Controller클래스 + home/index.jsp(화면) 한쌍이다. 그래서 Controller클래스에서 만든 변수를 index.jsp에서 사용가능하다. 
 - ex) 안드로이드앱 = 액티비티(java) + 레이아웃(xml)화면
 - ex) C#닷넷 = test.aspx.cs(프로그램) + test.aspx(화면) 한쌍
+- Junit(Java unit Test) : 자바 단위 테스트(서비스프로그램 만들기 전 프로토타입 시제품 제작) Junit CRUD 작업 후 본격작업시작
 
 #### 20210601(화) 작업
 - 관리자단 AdminLTE적용-스프링시간|UI 디자인시간 선택 후 아래 작업 진행 예정

@@ -9,6 +9,10 @@
 2. 댓글기능(RestAPI-백엔드,Ajax처리-프런트단) > 네이버아이디로그인(외부API사용) > 헤로쿠클라우드배포
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 
+#### 20210604(금) 작업
+- junit테스트시 SQL에러를 디버그하는 방법은 jdbc드라이버 -> log4jdbc드라이버 바꾸면, SQL에러가 나오게 됩니다.
+- junit에서는 SQL에러가 보입니다. 콘솔창에서는 보이질않음. 콘솔창에서 SQL로그상황이 나오게하는 드라이버를 pom.xml에 추가한다. 
+
 
 #### 20210603(목) 작업
 - Junit테스트 : 오라클 연동한 후 회원관리부분 CRUD 테스트 진행
@@ -19,6 +23,7 @@
 - root-context.xml 파일에 오라클 커넥션 빈(스프링 클래스)을 추가.
 - 스프링이 관리하는 클래스를 추가하는 방법2가지 : 1. @Controller, @Repository, @Service, @Component
 - 2. context.xml에서 빈(bean태그)을 추가하면, 스프링 클래스가 됨.
+
 
 #### 20210602(수) 작업.
 - views/home/index.jsp 엑박처리도 후 분해(header.jsp, footer.jsp, index.jsp)

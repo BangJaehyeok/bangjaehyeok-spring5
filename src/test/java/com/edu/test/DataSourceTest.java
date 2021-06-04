@@ -2,7 +2,9 @@ package com.edu.test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -37,8 +39,29 @@ public class DataSourceTest {
 		//스프링빈을 사용하지 않을때 예전 방식 : 코딩테스트때 스프링개발환경세팅이 안될수있다.
 		Connection connection = null;
 		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE","XE","apmsetup");
-		logger.debug("데이터베이스 접속이 성공하였습니다. DB종류는 "+ connection.getMetaData().getDatabaseProductName());
-		
+		logger.debug("데이터베이스 직접 접속이 성공하였습니다. DB종류는 "+ connection.getMetaData().getDatabaseProductName());
+		//직접 쿼리를 날립니다. 날리기전 쿼리문장 객체생성 Statement 
+		Statement stmt = connection.createStatement();
+		//위 쿼리문장객체를 만드는 이유? 보안(SQL인젝션 공격을 방지)
+		//stmt객체가 없으면, 개발자가 SQL인젝션 방지코딩을 일일히 넣어야한다.
+		//insert쿼리문장을 만듬(아래)
+		//옛날방식으로 더미데이터를 100개 입력합니다.
+		/*
+		 * for(int cnt=0;cnt<100;cnt++) { //error deptno 자리수가 두자리로 고정이 되어서 100은 입력시 에러
+		 stmt.executeQuery("insert into dept02 values("+cnt+", '디자인부','경기도')");
+		}
+		 */
+		 
+		//인서트,업데이트,삭제시 sql디벨로퍼에서는 커밋이 필수지만, 외부 java클래스에서 insert할때는 자동커밋된다.
+		//테이블에 입력되어있는 레코드셋를 select 쿼리stmt문장으로 가져옴(아래)
+		ResultSet rs = stmt.executeQuery("select * from dept02 order by deptno");//20년전 작업방식
+		//위에서 저장된 rs객체를 반복문으로 출력(아래)
+		while(rs.next()) {//rs객체의 레코드가 없을때까지 반복
+			logger.debug(rs.getString("deptno")+" "+rs.getString("dname")+
+					" "+rs.getString("loc"));
+		}
+		stmt = null;//메모리 반환
+		rs = null;//메모리 반환
 		connection = null;//메모리 초기화
 	}
 	

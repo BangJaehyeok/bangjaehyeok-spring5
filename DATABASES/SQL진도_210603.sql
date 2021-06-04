@@ -35,7 +35,13 @@ SELECT * FROM emp WHERE comm is not NULL;
 SELECT  nvl2(comm,100,0), E.* FROM emp E WHERE NVL(comm,0) = 0;
 --NVL2(필드명, 널이아닐때100, 널일때0), NVL(필드명, 널일때0)
 -- 오라클은 표준쿼리X, ANSI쿼리가 표준.
-SELECT  DECODE(comm,null,0,100),NVL2(comm,100,0), E.* FROM emp E WHERE NVL(comm,0) = 0;
+SELECT case when comm is null then 0
+when comm = 0 then 100
+when comm > 0 then comm 
+end AS "CASE출력문"
+,DECODE(comm,null,0,100),
+NVL2(comm,100,0), 
+E.* FROM emp E; --WHERE NVL(comm,0) = 0;
 -- 연봉을 기준으로 정렬 sort, 순서 order by 필드명 오름차순(초기값)|내림차순 DESC
 -- (중요)서브쿼리 select쿼리가 중복되어있는게 서브쿼리.
 SELECT ROWNUM, E.* FROM ( 

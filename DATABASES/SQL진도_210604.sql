@@ -1,5 +1,29 @@
 --8장 함수(count, upper, lower, to_char, round,...) 그룹함수
-select ename, round(sal) from emp;
+--부서별 연봉의 합계를 구해서 제일 급여가 많이 지출되는 부서(아래)
+--자바코딩에서는 소문자로 통일.
+select * from (
+SELECT deptno, sum(sal) as dept_sal
+from emp group by deptno) R order by dept_sal desc; --R의 역할은 Alias 별명이다. 별칭. as R
+--서브쿼리에 별칭을 정해서 구분짓기 쉽게 하는 역할도 한다.
+
+select deptno, sum(sal) from emp group by deptno
+order by sum(sal) desc; --group by의 특징 : select에 있는 필드명과 group by에 있는 필드명이 일치해야한다.
+
+
+--라운드함수(반올림) 소수점기준. round(10.05,2) 소수점 두번째자리 반올림
+select ename, round(sal, -3) from emp; --레코드가 여러개 출력
+select sum(sal) from emp; --한개의 레코드만 나옴. 그룹함수라고 말함.
+select round(avg(sal),2) from emp; -- 평균 1개의 레코드로 출력.
+
+-- 사원 중에 평균연봉보다 많이 받는 사람의 수 구하기(아래),
+-- 아래 AVG함수를 where 조건에 사용못할때, 서브쿼리를 이용한다. 쿼리안의 쿼리
+select count(*) from emp where sal < 
+(select avg(sal) from emp);
+
+select max(sal)
+, min(sal)
+, max(sal)-min(sal) AS "대표와 사원의 연봉차"
+from emp;
 
 --DDL문(create; alter;), DCL문(commit; rollback;)
 --DML문(Data Manufacture Language) insert, update, delete

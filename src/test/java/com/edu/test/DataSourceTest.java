@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -15,6 +16,9 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import com.edu.service.IF_MemberService;
+import com.edu.vo.MemberVO;
 
 /*
  * 이 클래스는 오라클과 연동해서 CRUD를 테스트하는 클래스입니다.
@@ -34,15 +38,14 @@ public class DataSourceTest {
 	DataSource dataSource; //Inject로 객체를 만들면 메모리 관리를 스프링이 대신 해줌
 	//Inject 자바8부터 지원, 이전 자바7에서는 @Autowired로 객체를 만들었음.
 	
-	//스프링 코딩 시작 순서
-	// M-V-C-M 에 모델과 뷰사이, 뷰와 컨트롤사이 서로의 사이사이에 데이터를 입출력하는 임시저장공간(VO클래스-멤버변수+Get/Set메서드) 생성
-	//보통 ValueObject클래스는 DB테이블과 1:1로 매칭이 됩니다.
-	//그래서, 1. MemberVO.java VO클래스를 생성한다.
-	//2. DB(마이바티스)쿼리를 만든다.(VO사용됨) - 내일부터 시작.
+	@Inject//MemberService서비스를 주입받아서 객체를 사용합니다.(아래)
+	private IF_MemberService memberService;
+	
 	@Test
 	public void selectMember() throws Exception {
 		//회원관리 테이블에서 더미로 입력한 데이터 100개의 레코드를 출력하는 메서드 테스트 => 회원관리목록이 출력
-		
+		List<MemberVO> listMember = memberService.selectMember();
+		listMember.toString();
 	}
 	
 	

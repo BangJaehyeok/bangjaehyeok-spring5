@@ -9,6 +9,9 @@
 2. 댓글기능(RestAPI-백엔드,Ajax처리-프런트단) > 네이버아이디로그인(외부API사용) > 헤로쿠클라우드배포
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 
+#### 20210609(수) 작업
+
+
 #### 20210608(화) 작업
 - CRUD 중 조회가 할게 많은데, 이번주는 조회기능 중 검색기능, 페이징처리기능을 실습할 예정.
 - 스프링코딩 작업순서 1부터6까지(아래)
@@ -17,14 +20,42 @@
 - 보통 ValueObject클래스는 DB테이블과 1:1로 매칭이 됩니다.*오늘 MemberVO만듬
 - 2.매퍼쿼리(마이바티스사용)를 만듭니다.(VO사용해서쿼리생성)-내일만들예정
 - 3.DAO(데이터엑세스오브젝트)클래스를 생성(SqlSession사용쿼리실행).*오늘 Sql세션은 root-context에 빈으로 만들었습니다.
+- IF인터페이스는 만드는 목적 : 복잡한 구현클래스 간단하게 구조화 시켜서 개발자가 관리하기 편하게 정리하는 역할, 기사시험 책에는 캡슐화 구현과 관련(알약 캡슐 - 안에 어떤 약이 있는지 모르게 먹게하기) 프로그램에서도 캡슐화는 구현내용을 몰라도, 이름만 보고 사용하게 만드는 것.
 - 스프링부트(간단한 프로젝트)에서는 4번 Service클래스가 없이 바로 컨트롤러로 이동합니다.
 - DAO가 3개이상이면 Service로 하나로 묶을 수 있다. 그래서 서비스가 필요없어보일 수 있지만 여러개면 하나로 묶을 필요성이 있다.
 - 4.Service(서비스)클래스생성(서비스에 쿼리결과를 담아 놓습니다.)
+- 게시물을 등록하는 서비스1개(tbl_board-DAO1개, tbl_attach-DAO2개)
+- Junit에서 위 작업한 내용을 CRUD테스트(선배작업) -> 대리,사원에게 
 - 5.Controller(컨트롤러)클래스생성(서비스결과를 JSP로 보냅니다.)
 - 6.JSP(View파일) 생성(컨트롤러의Model객체를 JSTL을 이용해 화면에 뿌려 줍니다.)
 
 - Ctrl+스페이스바 누르면 입력힌트가 나온다.
 
+- 페이징에 사용되는 변수(쿼리변수+VO변수) 아래
+- queryStartNo, queryPerPageNum, page, perPageNum, startPage, endPage
+- 검색에 사용되는 변수(쿼리변수만) : 검색어(search_keyword), 검색조건(search_type)
+
+```
+--SQL쿼리 페이징을 구현해서 변수로 삼을것을 정의
+--PageVO의 멤버변수로 사용예정
+select TB.* from
+(
+    select ROWNUM as RNUM, TA.* from
+    (
+        select * from tbl_member
+        order by reg_date desc
+        where user_id like '%admin%'
+        or user_name like '%사용자8%'
+    ) TA where ROWNUM <= (1*5)+5
+) TB where TB.rnum > 1*5 
+--페이징쿼리에 필요한 변수는 2개
+--현재페이지수의 변수 a*b == page * b == queryStartNo
+--1페이지당 보여줄개수의 변수 b == queryPerPageNum
+--PageVO에서 필요한 추가변수 : page
+--UI 하단에 페이지 선택번호 출력할때 사용하는 변수(아래)
+-- perPageNum 변수를 받아서 startPage, endPage를 구해서
+--하단의 페이지 선택 번호를 출력
+```
 
 
 

@@ -7,9 +7,9 @@ package com.edu.vo;
  * 검색에 사용되는 변수(쿼리변수만) : 검색어(search_keyword), 검색조건(search_type)
 */
 public class PageVO {
-	private int queryStartNo;//쿼리전용변수
-	private int queryPerPageNum;//쿼리전용변수
-	private Integer page;//jsp에서 발생 자바전용. int인데 null값을 허용.
+	private int queryStartNo;//쿼리전용변수, 페이징쿼리에서 시작페이지 인덱스번호표시 변수
+	private int queryPerPageNum;//쿼리전용, 페이징쿼리에서 1페이지당 출력할 개수표시 변수
+	private Integer page;//jsp에서 발생 선택한 페이지 번호변수. 자바전용. int인데 null값을 허용.
 	private int perPageNum; //UI하단에 보여줄 페이징개수 계산에 필요
 	private int totalCount; //계산식의 기초값으로 이 전체개수가 구해진 이후 계산식이 진행됨.
 	private int startPage;//위 perPageNum으로 구하는 UI하단 페이지 시작번호
@@ -55,8 +55,7 @@ public class PageVO {
 		calcPage();
 	}
 	private void calcPage() {
-		// 이 메서드는 totalCount변수값을 기반으로 prev,next,startPage,endPage 등을 			구현하게 됩니다.
-		
+		// 이 메서드는 totalCount변수값을 기반으로 prev,next,startPage,endPage 등을 구현하게 됩니다.
 		//ceil은 소수점을 모두 올림해주는 함수이다. 1.1=>2 , 2.3=>3(아래)
 		//ceil(11/10)*10 => 20페이지. tempEnd 1-10페이지에서 11페이지값이 존재하면, 홈페이지에 임시로 20이라는 숫자를 줍니다.
 		int tempEnd = (int) Math.ceil(page/(double)this.perPageNum)*this.perPageNum;
@@ -65,7 +64,24 @@ public class PageVO {
 	this.startPage = (tempEnd - this.perPageNum) +1;
 	//UI페이지 하단에 페이지번호가 반복되게 나오는게 하는데 필요한 변수
 	//예, 1-10까지는 page를 jsp에서 클릭했을때 시작페이지가 1페이지이다. but, 11~20페이지까지는 위 계산식을 이용하면 시작페이지가 항상 11페이지로 된다.
+	//위 startPage변수 jsp에서 반복문의 시작 값으로 사용.
+	//지금 토탈개수는 101개 이상
+	if(tempEnd*this.queryPerPageNum > this.totalCount) {
+		this.endPage = (int) Math.ceil((this.totalCount/(double)this.queryPerPageNum));
+		//위 계산식을 예를들면, 토탈페이지(101)/현재페이지(10) = ceil(10.1) = 11(endpage)
+		} else {
+			this.endPage = tempEnd;//20(endpage)
+		}
+	
+	//여기까지가 startPage, endPage구하는 계산식
+	// 이후는 prev, next 구하는 계산식
+	// UI하단의 페이지번호 상상 <(비활성) 1 2 3 4 5 6 7 8 9 10 >(활성-링크값 10+1)
+		this.prev = (this.startPage !=1); //startPage가 1페이지가 아닐때만 prev비활성화=false
+		this.next = (this.endPage*this.queryPerPageNum) < this.totalCount;
+		//10*10 =100 < 101이상이기 때문에 next가 활성화된다. = true
 	}
+	
+	
 	public int getStartPage() {
 		return startPage;
 	}

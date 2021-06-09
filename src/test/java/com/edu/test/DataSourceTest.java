@@ -43,6 +43,27 @@ public class DataSourceTest {
 	private IF_MemberService memberService;
 	
 	@Test
+	public void deleteMember() throws Exception {
+		memberService.deleteMember("user_del");
+		selectMember();
+	}
+	
+	@Test
+	public void insertMember() throws Exception {
+		MemberVO memberVO = new MemberVO();
+		//insert쿼리에 저장할 객체
+		memberVO.setUser_id("user_del");
+		memberVO.setUser_pw("1234");//스프링시큐리티 중 512바이트 암호화로 처리예정
+		memberVO.setEmail("user@test.com");
+		memberVO.setPoint(10);
+		memberVO.setEnabled(true);
+		memberVO.setLevels("ROLE_USER");
+		memberVO.setUser_name("삭제할사용자");
+		memberService.insertMember(memberVO);
+		selectMember();
+	}
+	
+	@Test
 	public void selectMember() throws Exception {
 		//회원관리 테이블에서 더미로 입력한 데이터 100개의 레코드를 출력하는 메서드 테스트 => 회원관리목록이 출력
 		//현재는 100명 검색기능, 페이징기능 여기서 구현. 1페이지에 10명씩 나오게 변경
@@ -57,7 +78,7 @@ public class DataSourceTest {
 		pageVO.setQueryPerPageNum(10);//쿼리사용 페이지당 개수
 		pageVO.setTotalCount(memberService.countMember());
 		pageVO.setSearch_type("user_id"); //검색타입 all, user_id, user_name
-		pageVO.setSearch_keyword("admin"); //검색어
+		pageVO.setSearch_keyword("user_del"); //검색어
 		//위 setTotalCount 위치가 다른 설정보다 상단이면 에러발생, 왜냐면 calcPage()가 실행되는데, 실행시 위 3가지 변수값이 저장되어있어야지 계산메서드가 정상작동되기때문.
 		//위 토탈카운트 변수값은 startPage, endPage계산에 필수입니다.
 		//매퍼쿼리_DAO클래스_Service클래스_Junit(나중에 컨트롤러에서 작업) 이제 역순으로 작업진행
@@ -73,7 +94,7 @@ public class DataSourceTest {
 	public void oldQueryTest() throws Exception {
 		//스프링빈을 사용하지 않을때 예전 방식 : 코딩테스트때 스프링개발환경세팅이 안될수있다.
 		Connection connection = null;
-		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE","XE2","apmsetup");
+		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE","XE","apmsetup");
 		logger.debug("데이터베이스 직접 접속이 성공하였습니다. DB종류는 "+ connection.getMetaData().getDatabaseProductName());
 		//직접 쿼리를 날립니다. 날리기전 쿼리문장 객체생성 Statement 
 		Statement stmt = connection.createStatement();

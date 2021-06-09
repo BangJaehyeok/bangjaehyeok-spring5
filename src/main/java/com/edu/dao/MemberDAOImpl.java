@@ -35,4 +35,18 @@ public class MemberDAOImpl implements IF_MemberDAO {
 		int totalCount = sqlSession.selectOne("memberMapper.countMember");
 		return totalCount;
 	}
+
+	@Override
+	public void insertMember(MemberVO memberVO) throws Exception {
+		// sqlSession빈의 메서드를 이용해서 매퍼 쿼리를 실행(아래)
+		sqlSession.insert("memberMapper.insertMember", memberVO);
+		
+	}
+
+	@Override
+	public void deleteMember(String user_id) throws Exception {
+		// sqlSession스프링빈의 메서드를 이용해서 매퍼 쿼리를 실행(아래)
+		sqlSession.delete("memberMapper.deleteMember", user_id);
+		
+	}
 }

@@ -52,12 +52,16 @@ public class DataSourceTest {
 		memberVO.setLevels("ROLE_ADMIN");
 		memberVO.setPoint(100);
 		memberVO.setUser_name("최고관리자");
-		memberVO.setUser_pw("1234"); //1사이클 돌린 후 암호화로직 적용.
-		//스프링5시큐리티 암호화 적용로직(아래)
+		memberVO.setUser_pw(""); //입력하지않으면 업데이트에서 제외
+		//메서드내 적용된 객체변수 생성
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
-		memberVO.setUser_pw("userPwEncoder");
+		//스프링5시큐리티 암호화 적용로직(아래)
+		if((memberVO.getUser_pw()).length() > 0) {
+			String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
+			memberVO.setUser_pw("userPwEncoder");
+		}
 		memberVO.setUser_id("admin");//수정조회조건에 사용.
+		memberService.updateMember(memberVO);
 		// ======여기까지는 jsp에서 1명의 회원만 수정할때 사용하는 로직=========
 		// ======이후부터는 모든 회원 중 시큐리티 암호화가 되지않는 사용자만 암호만 업데이트
 		//아래 수정 call호출을 회원수만큼 반복해야한다.(아래)
@@ -79,7 +83,7 @@ public class DataSourceTest {
 			
 			}
 		}
-		
+		selectMember();
 	}
 	@Test
 	public void readMember() throws Exception {

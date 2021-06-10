@@ -71,7 +71,8 @@ public class PageVO {
 	//만약 11페이지를 클릭하면, 임시 끝페이지가 20이 된다. tempEnd변수값으로 아래내용에 이용해서 시작페이지 값을 계산하게된다.
 	this.startPage = (tempEnd - this.perPageNum) +1;
 	//UI페이지 하단에 페이지번호가 반복되게 나오는게 하는데 필요한 변수
-	//예, 1-10까지는 page를 jsp에서 클릭했을때 시작페이지가 1페이지이다. but, 11~20페이지까지는 위 계산식을 이용하면 시작페이지가 항상 11페이지로 된다.
+	//예, 1-10까지는 page를 jsp에서 클릭했을때 시작페이지가 1페이지이다. 
+	//but, 11~20페이지까지는 위 계산식을 이용하면 시작페이지가 항상 11페이지로 된다.
 	//위 startPage변수 jsp에서 반복문의 시작 값으로 사용.
 	//지금 토탈개수는 101개 이상
 	if(tempEnd*this.queryPerPageNum > this.totalCount) {

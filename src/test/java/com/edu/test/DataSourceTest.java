@@ -129,7 +129,7 @@ public class DataSourceTest {
 		pageVO.setPage(1);//기본값으로 1페이지를 설정.
 		pageVO.setPerPageNum(10); //UI하단의 페이지당 개수
 		pageVO.setQueryPerPageNum(1000);//쿼리사용 페이지당 개수
-		//pageVO.setTotalCount(memberService.countMember());
+		//pageVO.setTotalCount(memberService.countMember(pageVO));
 		//모든 사용자를 출력하지 않고, 일부 사용자만 출력할때 아래 두줄이 필요
 		//pageVO.setSearch_type("user_id"); //검색타입 all, user_id, user_name
 		//pageVO.setSearch_keyword("user_del"); //검색어

@@ -14,7 +14,7 @@ import com.edu.vo.PageVO;
 public interface IF_MemberService {
 	public List<MemberVO> selectMember(PageVO pageVO) throws Exception;
 	//회원의 전체명수를 나타냅니다.
-	public int countMember() throws Exception;
+	public int countMember(PageVO pageVO) throws Exception;
 	public void insertMember(MemberVO memberVO) throws Exception;
 	public void deleteMember(String user_id) throws Exception;
 	public MemberVO readMember(String user_id) throws Exception;

@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edu.service.IF_MemberService;
 import com.edu.vo.MemberVO;
@@ -30,8 +32,20 @@ public class AdminController {
 	@Inject
 	private IF_MemberService memberService;
 	
+	@RequestMapping(value="/admin/member/member_view", method=RequestMethod.GET)
+	public String viewMemberForm(Model model, @RequestParam("user_id")String user_id, @ModelAttribute("pageVO")PageVO pageVO) throws Exception {
+		/**
+		 * 이 메서드는 리스트페이지에서 상세보기로 이동할때 1개의 레코드값을 보여주는 구현을 한다.
+		 * Junit에서 테스트한 readMember 방식을 이용.
+		 * 다른점은 JUnit에서는 식별자 ID를 강제로 지정했지만, 
+		 * 이 메서드에서는 @RequestParam인터페이스를 이용해서 식별자값을 받음
+		 */
+		//위 출력값 memberVO 1개의 레코드를 model를 이용해서 member_view.jsp 보냅니다.(아래)
+		model.addAttribute("memberVO", memberService.readMember(user_id));
+		return "admin/member/member_view";//상대경로 폴더파일위치
+	}
 	@RequestMapping(value="/admin/member/member_list", method=RequestMethod.GET)
-	public String selectMember(PageVO pageVO,Model model) throws Exception {
+	public String selectMember(@ModelAttribute("pageVO")PageVO pageVO,Model model) throws Exception {
 	//이 메서드는 2개 객체(MemberList, pageVO)를 생성해서 model을 통해서 jsp로 보내는 기능수행. 
 	//pageVO객체 (prev,next,startPage,endPage)
 	//pageVO객체부터 로직이 필요 -> memberList구하는 쿼리변수가 만들어지기 때문에 이것부터 구현.
@@ -50,7 +64,7 @@ public class AdminController {
 		logger.info("디버그" + pageVO.toString());
 		//컨트롤러에서 jsp로 역방향으로 보내는 자료를 Model에 담아서 보내게 됩니다.
 		model.addAttribute("listMember", listMember);
-		model.addAttribute("pageVO", pageVO);//나중에 @ModelAttribute로 대체
+		//model.addAttribute("pageVO", pageVO);//나중에 @ModelAttribute로 대체
 		return "admin/member/member_list";//jsp파일 상대경로
 	}
 	//URL요청 경로는 @RequestMapping 반드시 절대경로로 표시

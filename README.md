@@ -16,8 +16,11 @@
 - JSTL : Java Standard Tag Library
 - 관리자단 회원목록 처리 마무리(1.페이징 및 검색기능구현)
 - model을 이용해서 결과를 JSP로 구현(2. JSP화면은 표준언어인 JSTL로 구현)
+- 나머지 관리자 회원관리 CRUD 화면 JSP처리. view -> update -> insert
+
 - taglib uri(uniform resource identifier-의미가있는 고유값=식별값) > url(링크경로) uri가 더 많은 정보를 포함
 - prefix(접두어) : 태그 별칭으로 사용 <c 시작.
+- c:out 태그는 해킹방지용이다.
 
 
 #### 20210610(목) 작업

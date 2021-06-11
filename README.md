@@ -10,6 +10,16 @@
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
+#### 20210611(금) 작업
+- 정방향개발(앞으로 이렇게 진행) : 매퍼쿼리 -> DAO -> Service -> JUnit 컨트롤러클래스 -> JSP
+- 역방향개발 : 정방향으로 개발한 것을 검증용으로만 하기
+- JSTL : Java Standard Tag Library
+- 관리자단 회원목록 처리 마무리(1.페이징 및 검색기능구현)
+- model을 이용해서 결과를 JSP로 구현(2. JSP화면은 표준언어인 JSTL로 구현)
+- taglib uri(uniform resource identifier-의미가있는 고유값=식별값) > url(링크경로) uri가 더 많은 정보를 포함
+- prefix(접두어) : 태그 별칭으로 사용 <c 시작.
+
+
 #### 20210610(목) 작업
 -자바에서 객체가 공백 또는 비었는지 비교할때, 예를들면, 우리프로젝트에서 첨부파일이 있는지 비교할때 아래처럼 사용하지 않고
 - if(save_file_name !=null && "".equals(save_file_name))

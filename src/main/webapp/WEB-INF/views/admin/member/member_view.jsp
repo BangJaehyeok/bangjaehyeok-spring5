@@ -35,7 +35,7 @@
           <!-- /.card-header -->
           <!-- form start -->
           <!-- 첨부파일을 전송할때 enctype=필수 없으면, 첨부파일이 전송X -->
-          <form name="form_view" action="" enctype="multipart/form-data">
+          <form id="form_view" name="form_view" action="/admin/member/member_update" method="post" enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">사용자ID</label>
@@ -77,8 +77,15 @@
 
             <div class="card-footer text-right">
               <button type="submit" class="btn btn-primary">수정</button>
-              <button type="button" class="btn btn-danger">삭제</button>
-              <a href="board_list.html" class="btn btn-default">목록</a>
+              <button type="button" class="btn btn-danger" id="btn_delete">삭제</button>
+              <button type="button" class="btn btn-default" id="btn_list">목록</button>
+              <!-- 목록으로 이동하려면, pageVO도 가져가야한다. 또한 삭제,수정은 보안때문에
+              URL쿼리 스트링(GET)으로 보내면 안된다. POST방식으로 보낸다. -->
+              <input type="hidden" name="page" value="${pageVO.page}">
+              <input type="hidden" name="search_type" value="${pageVO.search_type}">
+              <input type="hidden" name="search_keyword" value="${pageVO.search_keyword}">
+              <input type="hidden" name="user_id" value="${memberVO.user_id}">
+              
             </div>
           </form>
         </div>
@@ -91,3 +98,13 @@
   <!-- /.content-wrapper -->
 
 <%@ include file="../include/footer.jsp" %>
+<!-- 관리자단은 JQuery코어가 하단 footer에 있기 때문에 여기에 위치합니다. -->
+<script>
+$(document).ready(function(){
+	$("#btn_list").click(function(){
+		alert("Get ready for the next battle");
+		//var queryString = 'page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${search_keyword}';
+		//location.replace('/admin/member/member_list?'+queryString);
+	});
+});
+</script>

@@ -35,7 +35,7 @@
           <!-- /.card-header -->
           <!-- form start -->
           <!-- 첨부파일을 전송할때 enctype=필수 없으면, 첨부파일이 전송X -->
-          <form id="form_view" name="form_view" action="/admin/member/member_update" method="post" enctype="multipart/form-data">
+          <form id="form_view" name="form_view" action="/admin/member/member_update_form" method="post" enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">사용자ID</label>
@@ -100,11 +100,17 @@
 <%@ include file="../include/footer.jsp" %>
 <!-- 관리자단은 JQuery코어가 하단 footer에 있기 때문에 여기에 위치합니다. -->
 <script>
-$(document).ready(function(){
+$(document).ready(function(){//자바변수인 $와 헷갈린다면 jQuery라고 써도된다.
+	$("#btn_delete").click(function(){
+	if(confirm("정말로 삭제하시겠습니까?")) {
+		//위 삭제확인문구에서 예를 누르면 아래 부분이 실행된다. (아니오, 건너뜀)
+		$("#form_view").attr("action","/admin/member/member_delete");
+		$("#form_view").submit();
+	}
+});
 	$("#btn_list").click(function(){
-		alert("Get ready for the next battle");
-		//var queryString = 'page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${search_keyword}';
-		//location.replace('/admin/member/member_list?'+queryString);
+		var queryString = 'page=${pageVO.page}&$search_type=${pageVO.search_type}&$search_keyword=${pageVO.search_keyword}';
+		location.replace('/admin/member/member_list?'+queryString);
 	});
 });
 </script>

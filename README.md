@@ -10,10 +10,16 @@
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
+#### 20210614(월) 작업
+- multipart라는 폼태그 전송방식을 추가 -> common.fileupload 외부모듈필수(pom.xml에서 의존성을 추가합니다.)
+- 위 외부모듈을 스프링 빈으로 등록합니다.(servelet-context.xml 하단에 추가)
+- 나머지 관리자단 회원관리 CRUD 화면 JSP구현 update, delete, insert
+
+
 #### 20210611(금) 작업
 - 정방향개발(앞으로 이렇게 진행) : 매퍼쿼리 -> DAO -> Service -> JUnit 컨트롤러클래스 -> JSP
 - 역방향개발 : 정방향으로 개발한 것을 검증용으로만 하기
-- JSTL : Java Standard Tag Library
+- JSTL : Java Standard Tag Library 자바표준태그모델로서 JSP에서 자바를 사용하는 표준
 - 관리자단 회원목록 처리 마무리(1.페이징 및 검색기능구현)
 - model을 이용해서 결과를 JSP로 구현(2. JSP화면은 표준언어인 JSTL로 구현)
 - 나머지 관리자 회원관리 CRUD 화면 JSP처리. view -> update -> insert

@@ -10,10 +10,28 @@
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
+#### 20210615(화) 작업.
+- 싱글톤 : 1개 클레스가 1개 객체(인스턴스)로만 생성해서 사용하겠다고 명시
+
+
 #### 20210614(월) 작업
-- multipart라는 폼태그 전송방식을 추가 -> common.fileupload 외부모듈필수(pom.xml에서 의존성을 추가합니다.)
-- 위 외부모듈을 스프링 빈으로 등록합니다.(servelet-context.xml 하단에 추가)
-- 나머지 관리자단 회원관리 CRUD 화면 JSP구현 update, delete, insert
+- multipart(첨부파일기능) 라는 폼태그 전송방식을 추가 -> commons.fileupload 외부모듈필수(pom.xml에서 의존성을 추가합니다.)
+- 위 외부모듈을 스프링 빈으로 등록합니다.(servlet-context.xml 하단에 추가)
+- CRUD에서 multipart를 사용한다면, 리졸브(resolve-해석기) 스프링빈이 필요
+
+```
+<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   </beans:bean>
+```
+- 데이터변수를 전송할때 GET(URL쿼리스트링)으로 전송받으면, 타 도메인에서도 GET으로 접근이 가능합니다.
+- 쉽게 말하면, 다른 도메인(서버)에서 GET은 검색만 가능, 입력/수정/삭제 불가능
+- 단, 데이터변수를 POST(숨김)으로 전송받으면, 타 도메인에서는 접근이 불가능합니다.
+- 쉽게 말하면, 같은 도메인(서버)에서만 POST로는 입력/수정/삭제 가 가능
+- 웹프로그램은 보안때문에 외부도메인에서 컨트롤러에서 지정한 GET방식의 URL로 접근해서 데이터출력이 가능.
+- 단, 입력수정삭제 기능은 자바컨트롤러클래스 GET방식으로 못하고, POST방식으로 지정 -> 다른 도메인(서버)에서 회원가입을 못하도록 서버단에서 에러를 발생시킴.
+- GET : Insert(외부사이트에서도 입력 가능) - 쿼리스트링으로 데이터전송 url?key=value&key2=value2
+- POST : Insert(외부 사이트에서 입력 불가능, 같은 사이트의 입력폼에서만 가능) form의 입력태그(히든스트링)으로 데이터전송
+- 나머지 관리자 회원관리 CRUD 화면 JSP구현 update(OK), delete(OK)
 
 
 #### 20210611(금) 작업

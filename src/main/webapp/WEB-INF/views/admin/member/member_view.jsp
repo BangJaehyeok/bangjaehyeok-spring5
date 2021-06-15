@@ -16,7 +16,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">관리자 관리</li>
+              <li class="breadcrumb-item active">관리자관리</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,7 +35,7 @@
           <!-- /.card-header -->
           <!-- form start -->
           <!-- 첨부파일을 전송할때 enctype=필수 없으면, 첨부파일이 전송X -->
-          <form id="form_view" name="form_view" action="/admin/member/member_update_form" method="post" enctype="multipart/form-data">
+          <form id="form_view" name="form_view" action="/admin/member/member_update_form" method="get" enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">사용자ID</label>
@@ -45,71 +45,71 @@
               <div class="form-group">
                 <label for="exampleInputPassword1">사용자명</label>
                 <br>
-                <c:out value="${memberVO.user_name}" /> 
+                <c:out value="${memberVO.user_name}" />
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">이메일</label>
                 <br>
-                <c:out value="${memberVO.email}" /> 
+                <c:out value="${memberVO.email}" />
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">가입대기</label>
                 <br>
-                <c:out value="${memberVO.enabled}" /> 
+                <c:out value="${memberVO.enabled}" />
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">권한</label>
                 <br>
-                <c:out value="${memberVO.levels}" /> 
+                <c:out value="${memberVO.levels}" />
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">가입일</label>
                 <br>
-                <c:out value="${memberVO.reg_date}" /> 
+                <c:out value="${memberVO.reg_date}" />
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">수정일</label>
                 <br>
-                <c:out value="${memberVO.update_date}" /> 
+                <c:out value="${memberVO.update_date}" />
               </div>
             </div>
             <!-- /.card-body -->
 
             <div class="card-footer text-right">
-              <button type="submit" class="btn btn-primary">수정</button>
+              <button type="submit" class="btn btn-primary">수정폼</button>
               <button type="button" class="btn btn-danger" id="btn_delete">삭제</button>
               <button type="button" class="btn btn-default" id="btn_list">목록</button>
-              <!-- 목록으로 이동하려면, pageVO도 가져가야한다. 또한 삭제,수정은 보안때문에
-              URL쿼리 스트링(GET)으로 보내면 안된다. POST방식으로 보낸다. -->
+              <!-- 목록으로 이동하려면, pageVO도 가져야 합니다. 또한 삭제/수정 보안때문에 
+              URL쿼리 스트링(GET)으로 보내면 X, POST방식으로 보냅니다. -->
               <input type="hidden" name="page" value="${pageVO.page}">
               <input type="hidden" name="search_type" value="${pageVO.search_type}">
               <input type="hidden" name="search_keyword" value="${pageVO.search_keyword}">
               <input type="hidden" name="user_id" value="${memberVO.user_id}">
-              
             </div>
           </form>
         </div>
-        
         <!-- //콘텐츠 내용 -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+<!-- /.content-wrapper -->
 
 <%@ include file="../include/footer.jsp" %>
-<!-- 관리자단은 JQuery코어가 하단 footer에 있기 때문에 여기에 위치합니다. -->
+<!-- 관리자단은 jQuery코어가 하단 footer에 있기 때문에 여기에 위치합니다. -->
 <script>
-$(document).ready(function(){//자바변수인 $와 헷갈린다면 jQuery라고 써도된다.
+$(document).ready(function(){
 	$("#btn_delete").click(function(){
-	if(confirm("정말로 삭제하시겠습니까?")) {
-		//위 삭제확인문구에서 예를 누르면 아래 부분이 실행된다. (아니오, 건너뜀)
-		$("#form_view").attr("action","/admin/member/member_delete");
-		$("#form_view").submit();
-	}
-});
+		if(confirm("정말로 삭제하시겠습니까?")) {
+			//위 컨펌대화상자에서 예,를 누르면, 아래 부분이 실행됨.(아니오, 건너띔)
+			$("#form_view").attr("action","/admin/member/member_delete");
+			$("#form_view").attr("method","post");
+			$("#form_view").submit();
+		}
+	});
 	$("#btn_list").click(function(){
-		var queryString = 'page=${pageVO.page}&$search_type=${pageVO.search_type}&$search_keyword=${pageVO.search_keyword}';
+		var queryString = 'page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}';
+		//alert(queryString);//디버그
 		location.replace('/admin/member/member_list?'+queryString);
 	});
 });

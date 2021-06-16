@@ -1,5 +1,5 @@
 package kr.or.test;
-
+//100이하의 모든 정수를 더해보자.
 public class Homework {
 
 	public static void main(String[] args) {

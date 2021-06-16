@@ -19,7 +19,9 @@ import com.edu.vo.MemberVO;
 import com.edu.vo.PageVO;
 
 /**
- * 이 클래스는 Admin관리자단을 접근하는 클래스
+ * 이 클래스는 Admin관리자단을 접근하는 컨트롤러 클래스 <- 디스패쳐 서블렛(게이트웨이:통로) 기능을 한다.
+ * 디스페쳐 서블렛 클래스는 톰캣이 실행(web.xml)될때 제일 먼저 실행되는 클래스, 그래서 게이트웨이라고 불린다.
+ * 디스페쳐 서블릿 실행될때, 컨트롤러의 Request매핑경로를  재등록합니다.
  * 변수 Object를 만들어서 jsp로 전송 <-> jsp 폼값을 받아서 Object로 처리
  * @author 방재혁
  *
@@ -32,6 +34,39 @@ public class AdminController {
 	//이 메서드는 회원목록을 출력하는 jsp와 매핑이 됩니다.
 	@Inject
 	private IF_MemberService memberService;
+	
+	
+	
+	//디스페쳐 서블릿 실행될때, 컨트롤러의 Request매핑경로를 다 등록합니다.
+	//jsp에서 게시판생성관리에 Get/Post 등으로 접근할때, URL을 bbs_type 으로 지정합니다.
+	//board_type 대신 bbs_type 하는 이유 : 왼쪽메뉴 고정시키는 로직에서 board라는 것이 겹치지 않도록 bbs사용.
+	@RequestMapping(value="/admin/bbs_type/bbs_type_list", method=RequestMethod.GET)
+	public String selectBoardTypeList() throws Exception {//목록폼1
+		return null;
+	}
+	@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.GET)
+	public String insertBoardTypeForm() throws Exception {//입력폼1
+		return null;
+	}
+	@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.POST)
+	public String insertBoardType() throws Exception {//입력처리1
+		return null;
+	}
+	//게시판 생성관리는 사용자단에서 사용하지 않는다. 그래서 UI를 사용할일이 없다. Read와 Update 공통으로 사용.
+	@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.GET)
+	public String updateBoardTypeForm() throws Exception {//수정폼1
+		return null;
+	}
+	@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.POST)
+	public String updateBoardType() throws Exception {//수정처리1
+		return null;
+	}
+	@RequestMapping(value="/admin/bbs_type/bbs_type_delete", method=RequestMethod.POST)
+	public String deleteBoardType() throws Exception {//삭제처리1
+		return null;
+	}
+	//=========================================================================================
+	
 	
 	//아래 경로는 회원신규등록 폼을 호출하는 URL쿼리스트링으로 보낸것을 받을때는 GET방식으로 받습니다.
 	@RequestMapping(value="/admin/member/member_insert_form", method=RequestMethod.GET)
@@ -49,6 +84,7 @@ public class AdminController {
 		memberService.insertMember(memberVO);
 		return "redirect:/admin/member/member_list";//.jsp생략
 	}
+	
 	//아래 경로는 수정처리를 호출=DB를 변경처리함.
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
 	public String updateMember(MemberVO memberVO, PageVO pageVO) throws Exception {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -44,12 +45,14 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- 아래 location링크주소에 jsp에서 프로그램처리예정 -->
-                <tr style="cursor: pointer;" onclick="location.replace('/admin/bbs_type/bbs_type_update?board_type=notice');">
-                  <td>NOTICE</td>
-                  <td>공지사항</td>
-                  <td>1</td>
+                <!-- 아래 링크주소에 jsp에서 프로그램처리예정 -->
+                <c:forEach var="boardTypeVO" items="${listBoardTypeVO}">
+                <tr style="cursor: pointer;" onclick="location.replace('/admin/bbs_type/bbs_type_update?board_type=${boardTypeVO.board_type}');">
+                  <td>${boardTypeVO.board_type}</td>
+                  <td>${boardTypeVO.board_name}</td>
+                  <td>${boardTypeVO.board_sun}</td>
                 </tr>
+                </c:forEach>
               </tbody>
             </table>
           </div>

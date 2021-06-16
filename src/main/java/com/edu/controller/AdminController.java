@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.edu.service.IF_BoardTypeService;
 import com.edu.service.IF_MemberService;
+import com.edu.vo.BoardTypeVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageVO;
 
@@ -34,6 +36,8 @@ public class AdminController {
 	//이 메서드는 회원목록을 출력하는 jsp와 매핑이 됩니다.
 	@Inject
 	private IF_MemberService memberService;
+	@Inject
+	private IF_BoardTypeService boardTypeService;
 	
 	
 	
@@ -41,29 +45,41 @@ public class AdminController {
 	//jsp에서 게시판생성관리에 Get/Post 등으로 접근할때, URL을 bbs_type 으로 지정합니다.
 	//board_type 대신 bbs_type 하는 이유 : 왼쪽메뉴 고정시키는 로직에서 board라는 것이 겹치지 않도록 bbs사용.
 	@RequestMapping(value="/admin/bbs_type/bbs_type_list", method=RequestMethod.GET)
-	public String selectBoardTypeList() throws Exception {//목록폼1
-		return null;
+	public String selectBoardTypeList(Model model) throws Exception {//목록폼1
+		model.addAttribute("listBoardTypeVO", boardTypeService.selectedBoardType());
+		return "admin/bbs_type/bbs_type_list";//상대경로일때는 views폴더가 root(최상위)
 	}
+	//bbs_type_list.jsp에서 게시판생성버튼을 클릭했을때 이동하는 폼경로
 	@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.GET)
 	public String insertBoardTypeForm() throws Exception {//입력폼1
-		return null;
+		return "admin/bbs_type/bbs_type_insert";
 	}
+	//bbs_type_insert.jsp의 입력폼에서 전송된 값을 boardTypeVO 자동으로 담아서 {구현} 
+	//단,자동으로 값이 바인딩되려면, 폼의name과, VO멤버변수명과 동일해야함
 	@RequestMapping(value="/admin/bbs_type/bbs_type_insert", method=RequestMethod.POST)
-	public String insertBoardType() throws Exception {//입력처리1
-		return null;
+	public String insertBoardType(BoardTypeVO boardTypeVO) throws Exception {//입력처리1
+		boardTypeService.insertBoardType(boardTypeVO);
+		return "redirect:/admin/bbs_type/bbs_type_list";
+		//redirect(뒤로가기 데이터사라짐)는 절대경로, forward:이동이 가능(뒤로가기 데이터가 살아있음-디도스같은 공격에 취약)
+		//쇼핑몰 결제화면을 처리 후 뒤로가기를 누르면, redirect는 데이터가 없어져서 재결제 불가
+		//forward로 결제화면을 처리 후 뒤로가기를 누르면, 재결제가 발생한다. 이러면 안되서 forward를 사용안함.
 	}
 	//게시판 생성관리는 사용자단에서 사용하지 않는다. 그래서 UI를 사용할일이 없다. Read와 Update 공통으로 사용.
 	@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.GET)
-	public String updateBoardTypeForm() throws Exception {//수정폼1
-		return null;
+	public String updateBoardTypeForm(@RequestParam("board_type")String board_type, Model model) throws Exception {//수정폼1
+		model.addAttribute("boardTypeVO", boardTypeService.readBoardType(board_type));
+		//서식 model.add~("jsp변수로 담아서 view화면으로 보냄","서비스에서 쿼리실행한 데이터객체");
+		return "admin/bbs_type/bbs_type_update";//.jsp 생략
 	}
 	@RequestMapping(value="/admin/bbs_type/bbs_type_update", method=RequestMethod.POST)
-	public String updateBoardType() throws Exception {//수정처리1
-		return null;
+	public String updateBoardType(BoardTypeVO boardTypeVO) throws Exception {//수정처리1
+		boardTypeService.updateBoardType(boardTypeVO);
+		return "redirect:/admin/bbs_type/bbs_type_update?board_type="+boardTypeVO.getBoard_type();//수정한 이후 다시 GET방식으로 수정폼이동
 	}
 	@RequestMapping(value="/admin/bbs_type/bbs_type_delete", method=RequestMethod.POST)
-	public String deleteBoardType() throws Exception {//삭제처리1
-		return null;
+	public String deleteBoardType(@RequestParam("board_type")String board_type) throws Exception {//삭제처리1
+		boardTypeService.deleteBoardType(board_type);//삭제서비스 호출(실행)
+		return "redirect:/admin/bbs_type/bbs_type_list";
 	}
 	//=========================================================================================
 	

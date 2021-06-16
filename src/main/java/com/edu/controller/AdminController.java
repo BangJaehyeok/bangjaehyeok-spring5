@@ -21,7 +21,7 @@ import com.edu.vo.PageVO;
 /**
  * 이 클래스는 Admin관리자단을 접근하는 클래스
  * 변수 Object를 만들어서 jsp로 전송 <-> jsp 폼값을 받아서 Object로 처리
- * @author 김일국
+ * @author 방재혁
  *
  */
 @Controller
@@ -33,12 +33,11 @@ public class AdminController {
 	@Inject
 	private IF_MemberService memberService;
 	
-
 	//아래 경로는 회원신규등록 폼을 호출하는 URL쿼리스트링으로 보낸것을 받을때는 GET방식으로 받습니다.
 	@RequestMapping(value="/admin/member/member_insert_form", method=RequestMethod.GET)
 	public String insertMemberForm(@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
 		
-		return "admin/member/member_insert";
+		return "admin/member/member_insert";//.jsp는 생략
 	}
 	//아래 경로는 회원신규등록을 처리하는 서비스를 호출하는 URL
 	@RequestMapping(value="/admin/member/member_insert", method=RequestMethod.POST)
@@ -48,7 +47,7 @@ public class AdminController {
 		String encPassword = passwordEncoder.encode(rawPassword);
 		memberVO.setUser_pw(encPassword);
 		memberService.insertMember(memberVO);
-		return "redirect:/admin/member/member_list";
+		return "redirect:/admin/member/member_list";//.jsp생략
 	}
 	//아래 경로는 수정처리를 호출=DB를 변경처리함.
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
@@ -56,7 +55,7 @@ public class AdminController {
 		//update 서비스만 처리하면 끝
 		//업데이트 쿼리서비스 호출하기 전 스프링시큐리티 암호화 적용합니다.
 		String rawPassword = memberVO.getUser_pw();
-		if(!rawPassword.isEmpty()) {//수정폼에서 암호 입력값이 비어있지 않을때만 아래로직실행.
+		if(!rawPassword.isEmpty()) {//수정폼에서 암호 입력값이 비어있지 않을때만 아래 로직실행.
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String encPassword = passwordEncoder.encode(rawPassword);
 			memberVO.setUser_pw(encPassword);

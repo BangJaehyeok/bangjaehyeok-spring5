@@ -15,7 +15,7 @@ where board_type=#{board_type}
 select * from tbl_board_type where board_type = #{board_type}
 </select>
 
-<insert id="insetBoardType">
+<insert id="insertBoardType">
 insert into tbl_board_type values (#{board_type},#{board_name},#{board_sun})
 </insert>
 

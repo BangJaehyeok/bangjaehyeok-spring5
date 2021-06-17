@@ -16,7 +16,7 @@ import com.edu.vo.BoardTypeVO;
  * @author 방재혁
  *
  */
-@Aspect
+//@Aspect
 @ControllerAdvice
 public class AspectAdvice {
 	@Inject

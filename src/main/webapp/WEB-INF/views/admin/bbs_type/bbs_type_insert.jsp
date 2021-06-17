@@ -39,7 +39,7 @@
               <div class="form-group">
               
                 <label for="board_type">게시판타입</label>
-                <input value="" name="board_type" type="text" id="board_type" class="form-control" placeholder="게시판 타입을 입력해주세요." required />
+                <input value="" name="board_type" type="text" style="ime-mode:disabled" id="board_type" class="form-control" placeholder="게시판 타입을 입력해주세요." required />
               </div>
               <div class="form-group">
                 <label for="board_name">게시판 이름</label>

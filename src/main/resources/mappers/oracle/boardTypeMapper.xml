@@ -3,7 +3,7 @@
 <mapper namespace="boardTypeMapper">
 <!-- 쿼리 CRUD 생성 페이징X, 검색X-->
 <delete id="deleteBoardType">
-delete from tlb_board_type where board_type =  #{board_type}
+delete from tbl_board_type where board_type =  #{board_type}
 </delete>
 
 <update id="updateBoardType">

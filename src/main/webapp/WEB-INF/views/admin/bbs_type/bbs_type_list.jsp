@@ -61,7 +61,7 @@
     <!-- //콘텐츠 내용 -->
     <!-- 페이징 처리 -->
     <div class="col-12 text-right">
-        <a href="/admin/bbs_type/bbs_type_insert" class="btn btn-primary mb-3">게시판등록</a>
+        <a href="/admin/bbs_type/bbs_type_insert" class="btn btn-primary mb-3">게시판생성</a>
     </div>
     <!-- //페이징 처리 -->
       </div><!-- /.container-fluid -->

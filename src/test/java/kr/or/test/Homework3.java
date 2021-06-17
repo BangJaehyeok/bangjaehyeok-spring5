@@ -1,9 +1,11 @@
 package kr.or.test;
-
+/*
+ * 1000이하의 소수 구하기
+ */
 public class Homework3 {
 
 	public static void main(String[] args) {
-		// 소수 구하기
+		
 		int i,j,namuji;
 		for(i=2; i<=1000; i++) {
 			namuji=0;

@@ -7,6 +7,7 @@ package com.edu.vo;
  * 검색에 사용되는 변수(쿼리변수만) : 검색어(search_keyword), 검색조건(search_type)
 */
 public class PageVO {
+	private String board_type; //게시판종류를 표시하는 전용 변수추가
 	private int queryStartNo;//쿼리전용변수, 페이징쿼리에서 시작페이지 인덱스번호표시 변수
 	private int queryPerPageNum;//쿼리전용, 페이징쿼리에서 1페이지당 출력할 개수표시 변수
 	private Integer page;//jsp에서 발생 선택한 페이지 번호변수. 자바전용. int인데 null값을 허용.
@@ -20,12 +21,20 @@ public class PageVO {
 	private String search_type;//검색조건에 해당하는 쿼리전용 변수
 	
 	
+	
 	@Override
 	public String toString() {
 		return "PageVO [queryStartNo=" + queryStartNo + ", queryPerPageNum=" + queryPerPageNum + ", page=" + page
 				+ ", perPageNum=" + perPageNum + ", totalCount=" + totalCount + ", startPage=" + startPage
 				+ ", endPage=" + endPage + ", prev=" + prev + ", next=" + next + ", search_keyword=" + search_keyword
 				+ ", search_type=" + search_type + "]";
+	}
+	//Get,Set용 메서드추가
+	public String getBoard_type() {
+		return board_type;
+	}
+	public void setBoard_type(String board_type) {
+		this.board_type = board_type;
 	}
 	public int getQueryStartNo() {
 		//this.page-1을 하는 이유 : jsp에서는 1,2,3..이렇게 받지만,

@@ -20,6 +20,25 @@ public class BoardVO {
 	private Date reg_date;
 	private Date update_date;
 	private String board_type;//FK
+	//게시물 1개 등록시 첨부파일은 1개이상이 필요합니다. but 1개의 필드에 여러개의 값을 입력할순 없다.
+	//그래서 DB(테이블)에는 없는 가상멤버필드(변수)를 2개 만듭니다.
+	private String[] save_file_names;//Null가능
+	private String[] real_file_names;//Null가능
+	
+	
+	public String[] getSave_file_names() {
+		return save_file_names;
+	}
+	public void setSave_file_names(String[] save_file_names) {
+		this.save_file_names = save_file_names;
+	}
+	public String[] getReal_file_names() {
+		return real_file_names;
+	}
+	public void setReal_file_names(String[] real_file_names) {
+		this.real_file_names = real_file_names;
+	}
+	
 	//디버그용 toString()생성
 	@Override
 	public String toString() {

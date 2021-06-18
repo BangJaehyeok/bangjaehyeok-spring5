@@ -28,11 +28,14 @@ save_file_name, real_file_name, reg_date, bno
 )
 values
 (
-	#{save_file_name},#{real_file_name},sysdate,
-	select bno from (
-	select bno from tbl_board order by bno desc 
-	) where rownum = 1
+	#{save_file_name},#{real_file_name},sysdate,#{bno}
+	
 )
+<!-- bno 변수값으로 받는 로직을 추가했기때문에 아래 주석
+select bno from (
+		select bno from tbl_board order by bno desc 
+	) where rownum = 1
+	 -->
 </insert>
 <!-- 위 bno는 게시물등록시 첨부파일 쿼리는 bno 매개변수로 보낼 수가 없는 상태임.-->
 <!-- 게시물CRUD 쿼리 생성 -->
@@ -58,8 +61,8 @@ where bno = #{bno}
 select * from tbl_board where bno = #{bno}
 </select>
 <!-- bno필드변수가 자동증가가 되는 기능이 필요 seq.nextVal -->
-<insert id="insertBoard">
-	<selectKey keyProperty="seq_bno" resultType="int" order="BEFORE">
+<insert id="insertBoard" parameterType="com.edu.vo.BoardVO">
+	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
 		select seq_bno.nextval from dual
 	</selectKey>
 	insert into tbl_board 
@@ -68,7 +71,7 @@ select * from tbl_board where bno = #{bno}
 	)
 	values 
 	(
-	#{seq_bno},#{title},#{content},#{writer},systimestamp,#{board_type}
+	#{bno},#{title},#{content},#{writer},systimestamp,#{board_type}
 	)
 </insert>
 <!-- 페이징을 제외한 검색쿼리를 이용해서 게시물 개수totalCount변수값 구하기 -->

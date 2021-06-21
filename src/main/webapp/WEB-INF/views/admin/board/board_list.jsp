@@ -46,7 +46,7 @@
             <i class="fas fa-search"></i>
             </button>
         </div>
-        <input type="hidden" value="${pageVO.board_type}" name="board_type">
+        <!-- <input type="hidden" value="${pageVO.board_type}" name="board_type"> -->
         </form>
        </div>
       <!-- //내용검색 폼 -->
@@ -88,16 +88,16 @@
         <a href="/admin/board/board_insert" class="btn btn-primary mb-3">글쓰기</a>
         <ul class="pagination justify-content-center">
         <li class="paginate_button page-item previous ${pageVO.prev==false?'disabled':''}" id="example2_previous">
-            <a href="/admin/board/board_list?page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+            <a href="/admin/board/board_list?page=${pageVO.startPage-1}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
         </li>
         <!-- 향상된for(주로사용, 시스템 부담이 작아짐), 일반for문(시작,끝값이 정해진 로직에서 사용) -->
         <c:forEach begin="${pageVO.startPage}" end="${pageVO.endPage}" step="1" var="idx">
         <li class="paginate_button page-item ${pageVO.page==idx?'active':''}">
-            <a href="/admin/board/board_list?page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">${idx}</a>
+            <a href="/admin/board/board_list?page=${idx}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">${idx}</a>
         </li>
         </c:forEach>
-        <li class="paginate_button page-item next" id="example2_next">
-            <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+        <li class="paginate_button page-item next ${pageVO.next==false?'disabled':''}" id="example2_next">
+            <a href="/admin/board/board_list?page=${pageVO.endPage+1}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Next</a>
         </li>
         </ul>
     </div>

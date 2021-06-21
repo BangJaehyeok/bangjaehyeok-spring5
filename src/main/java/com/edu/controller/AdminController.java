@@ -53,7 +53,8 @@ public class AdminController {
 		//토탈카운트를 구하기전 값이 필요(아래)
 		pageVO.setQueryPerPageNum(5);
 		pageVO.setTotalCount(boardService.countBoard(pageVO));
-		model.addAttribute("listBoardVO", null);
+		
+		model.addAttribute("listBoardVO", boardService.selectBoard(pageVO));
 		return "admin/board/board_list";//.jsp생략
 	}
 	

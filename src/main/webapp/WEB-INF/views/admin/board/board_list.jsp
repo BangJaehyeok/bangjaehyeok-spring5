@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -45,8 +46,9 @@
             <i class="fas fa-search"></i>
             </button>
         </div>
-        </div>
-      </form>
+        <input type="hidden" value="${pageVO.board_type}" name="board_type">
+        </form>
+       </div>
       <!-- //내용검색 폼 -->
             </div>
           </div>
@@ -57,21 +59,21 @@
                 <tr>
                   <th class="text-center">BNO</th>
                   <th class="text-center">BOARD_TYPE</th>
-                  <th class="text-center col-6">TITLE</th>
+                  <th class="text-center">TITLE</th>
                   <th class="text-center">WRITER</th>
                   <th class="text-center">REG_DATE</th>
                 </tr>
               </thead>
               <tbody>
                 <!-- 아래 location링크주소에 jsp에서 프로그램처리예정 -->
-                <c:forEach var="boardVO" items="listBoardVO">
-                <tr style="cursor: pointer;" onclick="location.replace('board_view.html?bno=183');">
-                  <td>183</td>
-                  <td>NOTICE</td>
-                  <td>
-                    Bacon ipsum </td>
-                  <td><span class="tag tag-success">Approved</span></td>
-                  <td>11-7-2014</td>
+                <c:forEach var="boardVO" items="${listBoardVO}">
+                
+                <tr style="cursor: pointer;" onclick="location.replace('/admin/board/board_view?bno=${boardVO.bno}');">
+                  <td>${boardVO.bno}</td>
+                  <td>${boardVO.board_type}</td>
+                  <td>${boardVO.title}</td>
+                  <td>${boardVO.writer}</td>
+                  <td><fmt:formatDate pattern="yyyy-MM-dd hh:MM:ss.SSSS" value="${boardVO.reg_date}"/> </td>
                 </tr>
                 </c:forEach>
                 

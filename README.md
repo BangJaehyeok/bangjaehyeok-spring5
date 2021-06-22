@@ -14,6 +14,9 @@
 #### 20210622(화) 작업
 - 정방향으로 개발 시작. VO제작->매퍼쿼리제작 -> DAO클래스 제작 -> Service클래스제작 -> Controller+jsp
 - 위 내용 중 게시물관리에서 CRUD 컨트롤러 + jsp처리(4.파일업로드구현)
+- 작업순서 : RUD -> C (R:ReadBoard;상세보기) readBoard(서비스)참조 -> board_view(컨트롤러)작업
+- web.xml에 프로그램실행순서가 나타난다. 그런데 AOP를 가장 먼저 실행되는 root-context에 두어서 실행이 안됐다.
+- AOP와 연결된 controller가 있는 servlet-context에 놨어야 했다. 그래서 해결됨.
 
 
 #### 20210621(월) 작업.

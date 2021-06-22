@@ -42,6 +42,13 @@ public class AdminController {
 	@Inject
 	private IF_BoardService boardService;//DI로 스프링빈을 주입해서 객체로 생성
 	
+	//게시물 상세보기 폼으로 접근하지 않고 URL쿼리스트링으로 접근(=GET으로 접근)
+	@RequestMapping(value="/admin/board/board_view", method=RequestMethod.GET)
+	public String board_view(@RequestParam("bno")Integer bno,@ModelAttribute("pageVO")PageVO pageVO, Model model) throws Exception {
+		model.addAttribute("boardVO", boardService.readBoard(bno));
+		return "admin/board/board_view";
+	}
+	
 	//게시물 목록은 폼이아닌 URL로 접근하기 때문에  GET방식으로 처리
 	@RequestMapping(value="/admin/board/board_list", method=RequestMethod.GET)
 	public String board_list(@ModelAttribute("pageVO")PageVO pageVO, Model model) throws Exception {

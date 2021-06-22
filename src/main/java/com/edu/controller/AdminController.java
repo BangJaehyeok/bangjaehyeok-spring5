@@ -79,6 +79,10 @@ public class AdminController {
 	//게시물 목록은 폼이아닌 URL로 접근하기 때문에  GET방식으로 처리
 	@RequestMapping(value="/admin/board/board_list", method=RequestMethod.GET)
 	public String board_list(@ModelAttribute("pageVO")PageVO pageVO, Model model) throws Exception {
+		//게시판 타입이 null일때 기본값으로 notice를 추가
+		if(pageVO.getBoard_type() == null) {
+			pageVO.setBoard_type("notice");
+		}
 		//페이징처리를 위한 기본값 추가
 		if(pageVO.getPage() == null) {
 			pageVO.setPage(1);

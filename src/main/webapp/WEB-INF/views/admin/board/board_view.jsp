@@ -35,7 +35,7 @@
           <!-- /.card-header -->
           <!-- form start -->
           <!-- 첨부파일을 전송할때 enctype=필수 없으면, 첨부파일이 전송X -->
-          <form name="form_view" action="/admin/board/board_update_form" enctype="multipart/form-data">
+          <form name="form_view" method="post" action="/admin/board/board_update_form" enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group">
                 <label for="exampleInputEmail1">제목</label>
@@ -227,13 +227,18 @@
 <%@ include file="../include/footer.jsp" %>
 <script>
 $(document).ready(function(){
+	var form_view = $("form[name='form_view']"); //전역변수
 	$("#btn_list").click(function(){
-		var form_view = $("form[name='form_view']");
+		//함수내변수
 		form_view.attr("action","/admin/board/board_list");
+		form_view.attr("method","get");//폼의 설정된 메서드 post에서 get으로 변경
 		form_view.submit();
 	});
 	$("#btn_delete").click(function(){
-		alert('준비중 입니다.');
+		if(confirm('정말로 삭제하시겠습니까?')) {//Yes를 클릭하면 아래 내용 실행
+			form_view.attr("action","/admin/board/board_delete");
+			form_view.submit();
+		}
 	});
 });
 </script>

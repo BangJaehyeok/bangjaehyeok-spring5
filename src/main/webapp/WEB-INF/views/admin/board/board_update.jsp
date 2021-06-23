@@ -52,7 +52,7 @@
               </div>
               <div class="form-group">
                 <label for="content">글내용</label>
-                <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required></textarea>
+                <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required>${boardVO.content}</textarea>
               </div>
               <div class="form-group">
                 <label for="writer">작성자</label>
@@ -86,7 +86,7 @@
             <!-- /.card-body -->
             <div class="card-footer text-right">
               <button type="submit" class="btn btn-primary">수정</button>
-              <a href="/admin/board/board_view?bno=${boardVO.bno}&page=${pageVO.page}&search_type=${pageVO.search_type}" class="btn btn-warning">상세보기화면</a>
+              <a href="/admin/board/board_view?bno=${boardVO.bno}&page=${pageVO.page}&search_type=${pageVO.search_type}" class="btn btn-warning">뷰화면</a>
             </div>
             <input name="page" value="${pageVO.page}" type="hidden">
             <input name="search_type" value="${pageVO.search_type}" type="hidden">

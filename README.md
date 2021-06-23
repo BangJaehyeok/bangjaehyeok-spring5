@@ -16,12 +16,18 @@
 - 작업순서 : RD OK -> C(Create),U(Update) 작업예정 
 - 업데이트 이후 파일업로드 구현 후 download 컨트롤러 실습예정
 
+- 시큐어코딩 방지메서드 : 목적은 코딩태그를 특수문자로 변경하는 메서드
+
 - 세션 사용법(=겟(사용),셋(생성),삭제하는 방법)
 - 세션 생성법 : session.setAttribute("세션변수명","값"); //로그인시 세션변수 생성.
 - 세션 값불러오기 : session.getAttribute("세션변수명");
 - 세션 삭제하기 : session.removeAttribute("세션변수명");
 - 전체 세션삭제 : session.invalidate(); : 전체 세션변수명을 삭제 = 세션초기화 = 로그아웃시 사용.
 
+- jsp=>컨트롤러로 @RequestParam("bno") 단방향
+- 컨트롤러->jsp로 Model model 단방향
+- jsp<=>컨트롤러  @ModelAttribute("pageVO") PageVO pageVO 양방향
+- 단, redirect는 Model로 담아서 보낼 수 없음. redirect에서는 Model대신에 RedirectAttribute 클래스를 이용해서 jsp값을 보냅니다.
 
 #### 20210622(화) 작업
 - 정방향으로 개발 시작. VO제작->매퍼쿼리제작 -> DAO클래스 제작 -> Service클래스제작 -> Controller+jsp

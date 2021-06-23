@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edu.service.IF_BoardService;
 import com.edu.service.IF_BoardTypeService;
@@ -50,8 +51,43 @@ public class AdminController {
 	
 	//게시물 수정처리는 POST로만 접근가능
 	@RequestMapping(value="/admin/board/board_update", method=RequestMethod.POST)
-	public String board_update(BoardVO boardVO, PageVO pageVO) throws Exception {
-		boardService.updateBoard(boardVO);//게시물수정
+	public String board_update(@RequestParam("file")MultipartFile[] files,BoardVO boardVO, PageVO pageVO) throws Exception 
+	{//파일이 여러개일때 MultipartFile[] 배열로 받는다.
+		
+	//기존 등록된 첨부파일 목록 구하기 List(2차원배열)객체의 크기는 .size()로 구함. 기존파일이 있을때 사용
+	List<AttachVO> delFiles = boardService.readAttach(boardVO.getBno());
+	//1차원 배열의 크기는 .length로 구한다.
+	String[] save_file_names = new String[files.length];
+	String[] real_file_names = new String[files.length];
+	int idx = 0;
+	for(MultipartFile file:files) {//files[0]=file, files[1]
+		if(file.getOriginalFilename() != "") {//전송된 첨부파일이 있다면 실행
+			int sun = 0;//DB테이블에 저장된 순서
+			//아래 for목적 : jsp폼에서 기존에 1번위치에 기존파일이 있으면, 
+			//기존파일을 지우고 신규파일을 덮어쓰는 로직
+			for(AttachVO file_name:delFiles) {//기존파일을 가져와서 반복하면서 지우는 로직
+				if(idx == sun) {
+					File target = new File(commonUtil.getUploadPath(), file_name.getSave_file_name());
+					if(target.exists()) {
+					target.delete();//물리적인 파일 지우는 명령
+					}//if(target.exists())
+				}//if(idx == sun)
+				sun++;
+			}//for-sun
+			//신규파일 업로드
+			save_file_names[idx] = commonUtil.fileUpload(file);//jsp폼에서 전송파일
+			real_file_names[idx] = file.getOriginalFilename();//UI용 이름임시저장
+		}//if(file.getOriginalFilename() != "")
+	}//for = idx
+	String rawContent = boardVO.getContent();
+	String secContent = commonUtil.unScript(rawContent);
+	boardVO.setContent(secContent);
+	String rawTitle = boardVO.getTitle();
+	String secTitle = commonUtil.unScript(rawTitle);
+	boardVO.setTitle(secTitle);
+	boardService.updateBoard(boardVO);//게시물수정
+	//첨부파일 작업전, 시큐어코딩 : 입력/수정시 시큐어코딩적용, 뷰화면에서 시큐어적용X
+		
 		
 		String queryString = "bno="+boardVO.getBno()+"&page="+pageVO.getPage()+"&search_type="+pageVO.getSearch_type();
 		return "redirect:/admin/board/board_view?"+queryString;//수정한 이후에는 board_view페이지로 이동, 새로고침방지를 위해서 redirect사용

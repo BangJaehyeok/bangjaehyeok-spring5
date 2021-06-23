@@ -32,7 +32,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form name="form_write" action="board_write.html" enctype="multipart/form-data">
+          <form name="form_write" method="post" action="/admin/board/board_update" enctype="multipart/form-data">
             <!-- 첨부파일 전송할때는 enctype="multipart/form-data"이게 필수다. 없으면 첨부파일 전송이 안됨.-->
             <!-- 전송할때 name을 지정해줘야함. input name처럼 name지정해줘야함. 안되면 서버로 전송이 안된다.
             POST라고 지정해주지 않으면 자동으로 get방식으로 된다. 그런데 비밀유지를 위해서 POST를 쓴다. 안그러면 비밀번호같은게 유출된다. -->
@@ -62,22 +62,35 @@
               <div class="form-group">
                 <label for="exampleInputFile">첨부파일</label>
                 <c:forEach var="idx" begin="0" end="1">
-                <div class="input-group">
+                <div class="input-group div_file_delete">
+                <!-- 위 div_file_delete 클래스 영역 이름은 업로드된 첨부파일을 개별 Ajax 삭제 할때  필요  -->
                   <div class="custom-file" >
-                    <input name="file" type="file" class="custom-file-input" id="file0">
-                    <label class="custom-file-label" for="file0">파일선택</label>
+                    <input name="file" type="file" class="custom-file-input" id="file_${idx}"><!-- id는 식별자 0,1,2,3... -->
+                    <label class="custom-file-label" for="file_${idx}">파일선택</label>
                   </div>
-                  <div class="mb-2"></div>
-                </div>
+                  <!-- 기존 업로드된 파일을 수정폼에 보여주기, 삭제버튼 필요(아래) -->
+                  <c:if test="${boardVO.save_file_names[idx] != null}">
+                  	<p class="text-muted">
+                  	<a href="/download?save_file_name=${boardVO.save_file_names[idx]}&real_file_name=${boardVO.real_file_names[idx]}">
+                  	${boardVO.real_file_names[idx]}</a>
+                  	&nbsp;<button class="btn btn-info btn_file_delete">삭제</button>
+                  	<input type="hidden" name="save_file_name" value="${boardVO.save_file_names[idx]}">
+                  	</p>
+                  </c:if>
+                  </div>
+                 <div class="mb-2"></div>
               </div>
               </c:forEach>
             
             </div>
             <!-- /.card-body -->
             <div class="card-footer text-right">
-              <button type="submit" class="btn btn-primary">등록</button>
-              <a href="board_list.html" class="btn btn-default">목록</a>
+              <button type="submit" class="btn btn-primary">수정</button>
+              <a href="/admin/board/board_view?bno=${boardVO.bno}&page=${pageVO.page}&search_type=${pageVO.search_type}" class="btn btn-warning">상세보기화면</a>
             </div>
+            <input name="page" value="${pageVO.page}" type="hidden">
+            <input name="search_type" value="${pageVO.search_type}" type="hidden">
+            <input name="bno" value="${boardVO.bno}" type="hidden">
           </form>
         </div>
         <!-- //콘텐츠 내용 -->

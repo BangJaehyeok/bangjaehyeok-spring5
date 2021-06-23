@@ -9,15 +9,15 @@ public class Homework4 {
 
 	public static void main(String[] args) {
 		
-		int num1,num2,sum;
-		num1=0;
-		num2=1;
+		int a,b,sum;
+		a=0;
+		b=1;
 		
 		for(int i=0; i<=14; i++) {
-			sum=num1+num2;
+			sum=a+b;
+			a=b;
+			b=sum;
 			System.out.println(sum);
-			num1=num2;
-			num2=sum;
 		}
 	}
 

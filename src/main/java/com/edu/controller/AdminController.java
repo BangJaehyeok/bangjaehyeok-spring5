@@ -48,6 +48,30 @@ public class AdminController {
 	@Inject
 	private CommonUtil commonUtil;
 	
+	//게시물 수정폼은 URL쿼리스트링으로 접근합니다.
+	@RequestMapping(value="/admin/board/board_update_form", method=RequestMethod.GET)
+	public String board_update_form(Model model, @RequestParam("bno")Integer bno,@ModelAttribute("pageVO") PageVO pageVO) throws Exception {
+		//첨부파일용 save_file_names, real_file_names 2개 배열값을 구해서 boardVO에 입력필요
+		BoardVO boardVO = new BoardVO();
+		boardVO = boardService.readBoard(bno);
+		//여기서 첨부파일 배열을 추가(아래)
+		List<AttachVO> listAttachVO = boardService.readAttach(bno);//세로리스트데이터를받음
+		String[] save_file_names = new String[listAttachVO.size()];
+		String[] real_file_names = new String[listAttachVO.size()];
+		int idx=0;
+		//향상된 for문 사용
+		for(AttachVO file_name:listAttachVO) {//세로데이터를 가로데이터로 변경하는 로직
+			save_file_names[idx] = file_name.getSave_file_name();
+			real_file_names[idx] = file_name.getReal_file_name();
+			idx++;
+		}
+		boardVO.setSave_file_names(save_file_names);
+		boardVO.setReal_file_names(real_file_names);
+		model.addAttribute("boardVO", boardVO);//1개코드저장
+		
+		return "admin/board/board_update";//.jsp생략
+	}
+	
 	//게시물 삭제는 URL쿼리스트링으로 접근하지 않고, post방식으로 처리한다.
 	@RequestMapping(value="/admin/board/board_delete", method=RequestMethod.POST)
 	public String board_delete(@RequestParam("bno")Integer bno,PageVO pageVO) throws Exception {
@@ -67,7 +91,7 @@ public class AdminController {
 			target.delete();//물리적인 파일 지우는 명령
 			}
 		}
-		String queryString = "page"+pageVO.getPage()+"&search_type="+pageVO.getSearch_type()+"&search_keyword="+pageVO.getSearch_keyword();
+		String queryString = "page"+pageVO.getPage()+"&search_type="+pageVO.getSearch_type();
 		return "redirect:/admin/board/board_list?"+queryString;
 	}
 	
@@ -194,7 +218,7 @@ public class AdminController {
 		}
 		memberService.updateMember(memberVO);//반환값이 없습니다.
 		//redirect로 페이지를 이동하면, model로 담아서 보낼수 없습니다. 쿼리스트링(URL?)으로 보냅니다.
-		String queryString = "user_id="+memberVO.getUser_id()+"&page="+pageVO.getPage()+"&search_type="+pageVO.getSearch_type()+"&search_keyword="+pageVO.getSearch_keyword();
+		String queryString = "user_id="+memberVO.getUser_id()+"&page="+pageVO.getPage()+"&search_type="+pageVO.getSearch_type();
 		return "redirect:/admin/member/member_update_form?"+queryString;
 	}
 	//아래 경로는 수정폼을 호출=화면에 출력만=렌더링만 

@@ -3,15 +3,12 @@ package kr.or.test;
  * 최대공약수, 최소공배수
  */
 
-import java.util.Scanner;
-
 public class Homework5 {
 		static int a, b;
 		public static void main(String[] args) {
-			Scanner sc = new Scanner(System.in);//scanner객체설정
 			System.out.println("a,b의 값을 입력해주세요");
-			a = 20;
-			b = 55;
+			a = 144;
+			b = 72;
 			if(b > a) {
 				int c = b;
 				b = a;

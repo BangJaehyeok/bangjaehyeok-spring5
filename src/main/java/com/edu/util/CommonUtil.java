@@ -15,6 +15,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -93,7 +94,8 @@ public class CommonUtil {
 		default:break;
 		}
 		
-		return new ResponseEntity<byte[]>(fileArray);//객체생성시 초기값(rawData, )
+		return new ResponseEntity<byte[]>
+		(fileArray,headers,HttpStatus.CREATED);//객체생성시 초기값(rawData,헤더정보,Http상태값)
 	}
 	
 	//XSS 크로스사이트스크립트 방지용 코드로 파싱하는 메서드(아래)

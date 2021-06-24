@@ -1,7 +1,5 @@
 package kr.or.test;
 
-import java.util.Scanner;
-
 /*
  * 피보나치 수열 구하기
  */

@@ -100,9 +100,12 @@ public class CommonUtil {
 		// 폴더에 저장할 PK파일명을 생성(아래)
 		UUID uid = UUID.randomUUID();//유니크 ID값 생성
 		String saveFileName = uid.toString() + "." + StringUtils.getFilenameExtension(realFileName);
-		byte[] fileData = file.getBytes();
+		//file의 MultipartFile 클래스형 객체. 클래스형자료(멤버변수,메서드...)는 직접 저장할 수 없다.
+		//그래서, 바이트형으로 파싱(변환)해서 저장해야함. -> bit형 자료(0,1밖에 없음) 그래서 getBytes가 쓰임(아래)
+		//자바자료형 정수 : byte(bit로 구성, 이진형 010101110)<short<int<long 실수형: float<double
+		byte[] fileData = file.getBytes();//데이터를 bit형으로 파싱해서 저장
 		File target = new File(uploadPath, saveFileName);
 		FileCopyUtils.copy(fileData, target);//물리적으로 폴더에 저장됨.
-		return saveFileName;
+		return saveFileName;//UUID로 생성된 식별값의 파일명
 	}
 }

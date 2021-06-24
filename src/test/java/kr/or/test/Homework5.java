@@ -4,8 +4,8 @@ package kr.or.test;
  */
 
 public class Homework5 {
-		static int a, b;
 		public static void main(String[] args) {
+			int a, b;
 			System.out.println("a,b의 값을 입력해주세요");
 			a = 144;
 			b = 72;

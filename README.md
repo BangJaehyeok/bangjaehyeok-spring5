@@ -11,7 +11,41 @@
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
 
-#### 20210624(목) 작업
+#### 20210625(금) 작업예정.
+- 게시물관리 Create 작업 마무리 OK.
+- 관리자단 댓글관리 CRUD 처리(6.RestAPI서버구현,JUnit대신에 크롬부메랑으로 테스트)
+- 스프링시큐리티 로그인및 권한체크 설정 후 사용자단 로그인 구현 예정.
+- 사용자단 회원가입, 수정, 탈퇴 JSP기능 추가예정.
+- 고전CRUD와 RestFull(API)방식 차이점 : 고전(화면이 이동), RestAPI가 요즘대세(한개의 화면에서 CRUD 처리)
+
+
+#### 20210624(목) 작업.
+[복습]오늘 작업한 첨부파일 처리도 데이터 변수의 이동상태나 변수값이 제일 중요합니다.
+핵심은 아래와 같습니다. Attach테이블에서 select쿼리 결과 테이터 구조는 아래와 같습니다.
+List<AttachVO> delFiles = [
+{"save_file_name":"abc1.jpg","real_file_name":"한글이미지1.jpg","bno":"bno10"},
+{"save_file_name":"abc2.jpg","real_file_name":"한글이미지2.jpg","bno":"bno10"}
+]
+데이터베이스에서 가져올때, 위와 같이 구조가 발생됩니다. 구조를 정리하면 아래와 같습니다.
+대괄호 List[VO배열] 안에 
+중괄호 VO{1개레코드 } 안에
+콜론으로 "키":"값" 구분 후 콥마, 로 멤버변수들을 구분합니다.
+
+- file.getBytes() 설명 포함 board_update메서드 리뷰 후 수업진행.
+- 작업순서: CRUD -> U 작업OK.
+- Create작업: 
+- update: updateBoard(서비스)참조 -> board_update(컨트롤러)작업+jsp작업
+- 업데이트 이후엔 파일업로드 구현 후 /download 컨트롤러 실습OK.
+
+한글파일명일때, IE브라우저에서 400에러발생됩니다. JSTL로 처리하면 해결 됩니다.(아래)
+-- 수정전 소스
+<a href="/download?save_file_name=${boardVO.save_file_names[idx]}&real_file_name=${boardVO.real_file_names[idx]}">
+-- 수정후 소스
+<c:url value="/download" var="url"> 
+   <c:param name="save_file_name" value="${boardVO.save_file_names[idx]}" />
+   <c:param name="real_file_name" value="${boardVO.real_file_names[idx]}" /> 
+</c:url>
+<a href="${url}">
 
 
 #### 20210623(수) 작업

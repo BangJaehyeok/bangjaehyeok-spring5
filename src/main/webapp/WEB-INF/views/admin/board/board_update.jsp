@@ -65,24 +65,26 @@
                     <input name="file" type="file" class="custom-file-input" id="file_${idx}"><!-- id는 식별자0,1,2,3... -->
                     <label class="custom-file-label" for="file_${idx}">파일선택</label>
                   </div>
-                  <!-- 기존 업로드된 파일을 수정폼에 보여주기, 삭제버튼 필요(아래) -->
-                  <c:if test="${boardVO.save_file_names[idx] != null}">
-                  	<p class="text-muted">
-                  	<a href="/download?save_file_name=${boardVO.save_file_names[idx]}&real_file_name=${boardVO.real_file_names[idx]}">
-                  	${boardVO.real_file_names[idx]}
-                  	</a>
+	                  	<!-- 기존 업로드된 파일을 수정폼에 보여주기, 삭제버튼 필요(아래) -->
+	                  	<c:if test="${boardVO.save_file_names[idx] != null}">
+	                  	<p class="text-muted">
+	                  	<c:url value="/download" var="downLoadUrl"> 
+						   <c:param name="save_file_name" value="${boardVO.save_file_names[idx]}" />
+						   <c:param name="real_file_name" value="${boardVO.real_file_names[idx]}" /> 
+						</c:url>
+						<a href="${downLoadUrl}">
+	                  	<!-- 첨부파일을 URL로 직접접근하지 못하기 때문에 컨트롤러로만 접근이 가능(다운로드전용 메서드생성)IE에서 한글쿼리스트링문제때문에 사용X -->
+	                    <%-- <a href="/download?save_file_name=${boardVO.save_file_names[idx]}&real_file_name=${boardVO.real_file_names[idx]}"> --%>
+	                    ${boardVO.real_file_names[idx]}
+	                    </a>
                   	&nbsp;<button type="button" class="btn btn-info btn_file_delete">삭제</button>
                   	<input type="hidden" name="save_file_name" value="${boardVO.save_file_names[idx]}">
                   	</p>
                   </c:if>
                 </div>
                 <div class="mb-2"></div>
-                
-                </c:forEach>
-                
-
-              </div>
-              
+                </c:forEach>                
+              </div>              
             </div>
             <!-- /.card-body -->
 

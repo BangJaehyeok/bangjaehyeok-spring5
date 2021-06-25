@@ -28,20 +28,21 @@
         <!-- 콘텐츠 내용 -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">수정</h3>
+            <h3 class="card-title">등록</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
           <!-- 첨부파일을 전송할때 enctype=필수 없으면, 첨부파일이 전송X -->
           <form name="form_write" method="post" action="/admin/board/board_insert" enctype="multipart/form-data">
             <div class="card-body">
-              <div class="form-group">
+              <div class="form-group" style="display:none">
                 <label for="board_type">게시판타입</label>
-                <select readonly name="board_type" class="form-control">
-                <!-- 세션값을 비교값으로 사용하는 이유는 신규등록이기 때문에 기존 게시물 정보가 없습니다. -->
+                <select name="board_type" class="form-control">
+                <!-- 세션값을 비교값으로 사용하는 이유는 신규등록이기때문에 기존게시물정보가 없습니다. -->
                 <c:forEach var="boardTypeVO" items="${listBoardTypeVO}">
                   <option ${session_board_type==boardTypeVO.board_type?'selected':''} value="${boardTypeVO.board_type}">${boardTypeVO.board_name}</option>
                 </c:forEach>
+                  
                 </select>
               </div>
               <div class="form-group">
@@ -67,18 +68,14 @@
                   </div>
                 </div>
                 <div class="mb-2"></div>
-                
                 </c:forEach>
-                
-
               </div>
-              
             </div>
             <!-- /.card-body -->
 
             <div class="card-footer text-right">
               <button type="submit" class="btn btn-primary">등록</button>
-              <a href="/admin/board/board_list?page=${pageVO.page}&search_type=${pageVO.search_type}" class="btn btn-warning">목록</a>
+              <a href="/admin/board/board_list?page=${pageVO.page}&search_type=${pageVO.search_type}" class="btn btn-info">목록</a>
             </div>
             <input name="page" value="${pageVO.page}" type="hidden">
             <input name="search_type" value="${pageVO.search_type}" type="hidden">
@@ -92,6 +89,7 @@
   <!-- /.content-wrapper -->
 
 <%@ include file="../include/footer.jsp" %>
+
 <!-- 첨부파일명을 input태그디자인 안쪽에 집어넣는 확장프로그램 -->
 <script src="/resources/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- 위 첨부파일 확장프로그램 실행(아래-개발자가 처리) -->

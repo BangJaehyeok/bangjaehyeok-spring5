@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.dao.IF_BoardDAO;
+import com.edu.dao.IF_ReplyDAO;
 import com.edu.vo.AttachVO;
 import com.edu.vo.BoardVO;
 import com.edu.vo.PageVO;
@@ -21,6 +22,9 @@ import com.edu.vo.PageVO;
 public class BoardServiceImpl implements IF_BoardService {
 	@Inject
 	private IF_BoardDAO boardDAO;
+	@Inject
+	private IF_ReplyDAO replyDAO;
+	
 	@Override
 	public List<AttachVO> readAttach(Integer bno) throws Exception {
 		// 첨부파일 List형으로 조회 DAO호출
@@ -41,6 +45,7 @@ public class BoardServiceImpl implements IF_BoardService {
 		// 댓글삭제도 *나중에 추가
 		//특이사항 : 첨부파일 DB만 삭제해서 해결+실제업로드된 파일을 삭제가 필요 *나중에 추가
 		boardDAO.deleteAttachAll(bno);
+		replyDAO.deleteReplyAll(bno);//댓글 DAO에서 deleteReplyAll을 실행
 		boardDAO.deleteBoard(bno);
 		
 	}

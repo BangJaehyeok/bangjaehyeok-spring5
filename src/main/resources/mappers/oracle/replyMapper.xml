@@ -12,7 +12,7 @@ delete from tbl_reply where rno = #{rno}
 
 <update id="updateReply">
 update tbl_reply set
-reply text = #{reply_text}
+reply_text = #{reply_text}
 ,update_date = systimestamp
 where rno = #{rno}
 </update>

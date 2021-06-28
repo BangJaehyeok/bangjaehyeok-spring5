@@ -20,9 +20,10 @@
 - 네트워크로 자료를 전송하는 방식 : SOAP소프(구버전), REST레스트(최신,HTTP방식으로 헤더에 자료를 담아서 보내는 방식)
 - Endpoint : 마이크로서비스는 RestAPI로 구현되고, 요청하는 URL을 엔드포인트라고 합니다. 트렌드이긴 하지만 쉽지않음. 기존 컨트롤러(게이트웨이)를 모두 RestController(Rest게이트웨이)로 변경이 필요하기 때문.
 - 엔드포인트(URL주소)에는 데이터를 전송할때, 쿼리스트링으로 보내지 않는 방식이 트렌드
-- 옛날방식 : /reply/reply_list?bno=99&page=1 -> @RequestParam 애노테이션으로 받음
+- 옛날방식 : /reply/reply_list?bno=59&page=1 -> @RequestParam 애노테이션으로 받음
 - 요즘방식 : /reply/reply_list/{게시물번호값}/{페이지번호값} -> @PathVariable 애노테이션으로 받음
 - 결과, /reply/reply_list/59/1 => 구글검색에 쉽게 노출시키기 위해서
+
 
 #### 20210625(금) 작업.
 - 게시물관리 Create 작업 마무리 OK.

@@ -258,8 +258,9 @@ var printPagingList = function(pageVO, target) {
 //pageVO = 스프링에서 받은 json데이터, 변수3개 pageVO.prev(이전데이터가 있다면 true), pageVO.next(다음데이터 있다면 true), pageVO=5페이지로 가정
 	var pagination = '';//문자열 누적변수
 	//Previous 출력(아래)
+	if(i==pageVO.prev) { prevlink = 'disabled'; } else { prevlink = ''; }
 	pagination += '<li class="paginate_button page-item previous disabled" id="example2_previous">';
-	pagination += '<a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>';
+	pagination += '<a href="'+(pageVO.startPage-1)+'" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>';
 	pagination += '</li>';//pagination = pagination + '</li>';//여기 Previous
 	var active = '';
 	for(var i=pageVO.startPage; i<=pageVO.endPage; i++) {
@@ -269,8 +270,9 @@ var printPagingList = function(pageVO, target) {
 		pagination += '</li>';
 	}
 	//Next 출력(아래)
-	pagination += '<li class="paginate_button page-item next" id="example2_next">';
-	pagination += '<a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>';
+	if(i==pageVO.next) { nextlink = ''; } else { nextlink = 'disabled'; }
+	pagination += '<li class="paginate_button page-item next '+nextlink+'" id="example2_next">';
+	pagination += '<a href="'+(pageVO.endPage+1)+'" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>';
 	pagination += '</li>';
 	$(target).append(pagination);
 };
@@ -308,6 +310,8 @@ $(document).ready(function(){
 	//하단 페이징 링크의 속성처리(아래)
 	$(".pagination").on("click","li a",function(event){
 		event.preventDefault();//a태그의 링크속성을 사용하지 않겠다.
+		$("#reply_page").val($(this).attr("href"));
+		replyList();
 	});
 	//댓글 리스트버튼(아래)
 	$("#btn_reply_list").click(function(){

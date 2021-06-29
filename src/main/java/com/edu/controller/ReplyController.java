@@ -24,7 +24,7 @@ import com.edu.vo.ReplyVO;
 /**
  * 이 클래스는 RestFull 서비스의 Endpoint(게이트웨이,URL매핑)를 만드는 클래스임.
  * 간단하게 말하면, RestAPI서버 만드는 클래스 입니다.
- * @author 김일국
+ * @author 방재혁
  *
  */
 @RestController
@@ -34,15 +34,23 @@ public class ReplyController {
 	private IF_ReplyService replyService;
 	
 	//댓글 삭제를 RestFul로 처리
-	@RequestMapping(value="reply/reply_delete", method=RequestMethod.DELETE)
-	public ResponseEntity<String> reply_delete() {
+	@RequestMapping(value="/reply/reply_delete/{bno}/{rno}", method=RequestMethod.DELETE)
+	public ResponseEntity<String> reply_delete(@PathVariable("bno")Integer bno, @PathVariable("rno")Integer rno) {
 		ResponseEntity<String> result = null;
-		//오늘은 여기까지
+		ReplyVO replyVO = new ReplyVO();
+		replyVO.setBno(bno);
+		replyVO.setRno(rno);
+		try {
+			replyService.deleteReply(replyVO);
+			result = new ResponseEntity<String>("success",HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<String>("",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return result;
 	}
 	//댓글은 Read가 필요없다. Select로 가져온 값을 Ajax로 처리하기 때문에 쿼리를 날릴 필요가 없다.
 	//그래서 Update로 바로 갑니다. - Update시 Read쿼리가 필요없고, Ajax처리함.
-	@RequestMapping(value="reply/reply_update", method=RequestMethod.PATCH)
+	@RequestMapping(value="/reply/reply_update", method=RequestMethod.PATCH)
 	public ResponseEntity<String> reply_update(@RequestBody ReplyVO replyVO) {
 		//@RequestBody jsp에서 $.ajax로 받는 데이터값을 말함. <-> @ResponseBody와 반대
 		ResponseEntity<String> result = null;

@@ -46,4 +46,15 @@
 	  <url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!--URL요청 Endpoint에서 PATCH, Delete, Put은 10년 전에는 아예 없었기 때문에
+	구버전 호환성을 추가  -->
+	<filter>
+	    <filter-name>hiddenHttpMethodFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>hiddenHttpMethodFilter</filter-name>
+	    <url-pattern>/</url-pattern>
+	</filter-mapping>
+		
 </web-app>

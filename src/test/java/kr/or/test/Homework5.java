@@ -7,8 +7,8 @@ public class Homework5 {
 		public static void main(String[] args) {
 			int a, b;
 			System.out.println("a,b의 값을 입력해주세요");
-			a = 144;
-			b = 72;
+			a = 96;
+			b = 28;
 			if(b > a) {
 				int c = b;
 				b = a;

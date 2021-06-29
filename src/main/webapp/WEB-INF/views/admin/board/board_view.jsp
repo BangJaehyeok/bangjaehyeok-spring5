@@ -150,7 +150,7 @@
                 </div>
                 <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                 <button type="button" class="btn btn-warning" id="btn_reply_write">댓글등록</button>
-                <input type="hidden" value="" id="reply_page">
+                <input type="hidden" value="1" id="reply_page">
                 </div>
               </div>
               </div>
@@ -262,10 +262,10 @@ var printPagingList = function(pageVO, target) {
 	pagination += '<a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>';
 	pagination += '</li>';//pagination = pagination + '</li>';//여기 Previous
 	var active = '';
-	for(var i=0; i<pageVO; i++) {
-		if(i==0) { active = 'active'; } else { active = ''; }
+	for(var i=pageVO.startPage; i<=pageVO.endPage; i++) {
+		if(i==pageVO.page) { active = 'active'; } else { active = ''; }
 		pagination += '<li class="paginate_button page-item '+active+'">';
-		pagination += '<a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">'+(i+1)+'</a>';
+		pagination += '<a href="'+i+'" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">'+(i)+'</a>';
 		pagination += '</li>';
 	}
 	//Next 출력(아래)
@@ -274,9 +274,46 @@ var printPagingList = function(pageVO, target) {
 	pagination += '</li>';
 	$(target).append(pagination);
 };
+//함수형 변수로서 댓글 리스트를
+var replyList = function(){
+	var page = $("#reply_page").val();
+	$.ajax({
+		type:"post",
+		url:"/reply/reply_list/${boardVO.bno}/"+page,
+		dataType:"json", //전송받는 데이터형태
+		success:function(result){
+			if(typeof result=="undefined" || result ==""  || result == null) {
+				$("#collapseReply").empty();//div태그 안의 내용만 삭제하기.
+				$("#collapseReply").html('<div class="pagination justify-content-center"><ul class="pagination pageVO">조회된 값이 없습니다.</ul></div>;');//div태그 안의 html내용 추가하기.
+			} else {
+				//json데이터를 화면에 파싱합니다.(구버젼:xml복잡한 태그 데이터를 파싱)
+				//템플릿 빵틀에 result데이터를 바인딩(파싱)해서 출력
+				//JSON.parse(텍스트)->일반 문자열을 json데이터로 변경하는 함수
+				//JSON.stringify(json데이터)->json데이터를 일반문자열로 변경하는 함수
+				console.log("여기까지"+ JSON.stringify(result.replyList));//크롬콘솔에서 확인
+				printReplyList(result.replyList, $("#template"), $("#collapseReply"));
+				printPagingList(result.pageVO, ".pagination");
+			}
+			
+		},
+		error:function(){
+			alert("RestAPI서버가 작동하지 않습니다. 다음에 이용해주세요.");
+		}
+	});
+};
 </script>
 <script>
+//댓글 CRUD처리
 $(document).ready(function(){
+	//하단 페이징 링크의 속성처리(아래)
+	$(".pagination").on("click","li a",function(event){
+		event.preventDefault();//a태그의 링크속성을 사용하지 않겠다.
+	});
+	//댓글 리스트버튼(아래)
+	$("#btn_reply_list").click(function(){
+		replyList();//댓글 리스트 출력 Ajax호출
+	});
+	//댓글 등록버튼(아래)
 	$("#btn_reply_write").click(function(){
 		//RestAPI엔드포인트로 보낼 값 지정
 		var bno = "${boardVO.bno}";//자바변수값

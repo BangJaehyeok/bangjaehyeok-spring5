@@ -20,7 +20,7 @@ where rno = #{rno}
 <!-- 댓글을 삭제할때 게시판 테이블에 reply_count필드에 값이 -1발생 -->
 <update id="replyCountUpdate">
 update tbl_board set 
-reply_count = reply_count + #{count}
+reply_count = (select count(*) from tbl_reply where bno = #{bno})
 where bno = #{bno}
 </update>
 <!-- 댓글에서는 별도로 Read가 없이 Select 1개로 구현이 된다. -->

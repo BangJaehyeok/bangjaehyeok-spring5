@@ -28,6 +28,14 @@ public class HomeController {
 	 * return 값으로 view(jsp)를 선택해서 작업한 결과를 변수에 담아서 화면에 전송 후  결과를 렌더링(표시)합니다.
 	 * 폼 자료전송시 post(자료숨김), get(자료노출-쿼리스트링, ?있는자료전송)
 	 */
+	//이제부터 일반적인 개발방식 VO->쿼리->DAO->Service(관리자단에서 여기까지 끝)
+	//관리자단에서 작성한 Service 사용자단에서 그대로 이용, 컨트롤러부터 분리해서 작업->jsp
+	//사용자단 로그인 URL 폼호출 GET, 로그인 POST처리는 컨트롤러에서 하지않고 스프링 시큐리티로 처리
+	@RequestMapping(value="/login_form", method=RequestMethod.GET)
+	public String login_form() throws Exception {
+		
+		return "home/login";//.jsp생략
+	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homepage(Model model) {//콜백 메서드, 자동실행됨.	
 		String jspVar = "@서비스(DB)에서 처리한 결과";

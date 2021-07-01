@@ -1,5 +1,8 @@
 package com.edu.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //외부 라이브러리(모듈) 사용 = import
@@ -30,6 +33,18 @@ public class HomeController {
 	 */
 	//이제부터 일반적인 개발방식 VO->쿼리->DAO->Service(관리자단에서 여기까지 끝)
 	//관리자단에서 작성한 Service 사용자단에서 그대로 이용, 컨트롤러부터 분리해서 작업->jsp
+	
+	//마이페이지 폼호출 GET방식, 회원수정폼이라서 model담아서 변수값을 전송하는 것이 필요
+	@RequestMapping(value="/member/mypage_form", method=RequestMethod.GET)
+	public String mypage_form(HttpServletRequest request, Model model) throws Exception {
+		//로그인한 사용자 세션을 session_userid로 memberService의 readMember를 호출하면됨.
+		//jsp에서 발생된 세션을 가져오려고 하기 때문에 HttpServletRequest객체가 사용됩니다.
+		HttpSession session = request.getSession();//싱글톤객체
+		String user_id = (String) session.getAttribute("session_userid");
+		model.addAttribute("memberVO", null);
+		return "home/member/mypage";//.jsp 생략
+	}
+	
 	//사용자단 로그인 URL 폼호출 GET, 로그인 POST처리는 컨트롤러에서 하지않고 스프링 시큐리티로 처리
 	@RequestMapping(value="/login_form", method=RequestMethod.GET)
 	public String login_form() throws Exception {

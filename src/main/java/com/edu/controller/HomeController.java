@@ -1,15 +1,21 @@
 package com.edu.controller;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //외부 라이브러리(모듈) 사용 = import
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.edu.service.IF_MemberService;
+import com.edu.vo.MemberVO;
 
 
 /**
@@ -34,6 +40,23 @@ public class HomeController {
 	//이제부터 일반적인 개발방식 VO->쿼리->DAO->Service(관리자단에서 여기까지 끝)
 	//관리자단에서 작성한 Service 사용자단에서 그대로 이용, 컨트롤러부터 분리해서 작업->jsp
 	
+	@Inject
+	private IF_MemberService memberService;
+	
+	//마이페이지 회원정보수정 POST방식. 처리 후 msg를 히든값으로 jsp로 전송합니다.
+	@RequestMapping(value="/member/mypage", method=RequestMethod.POST)
+	public String mypage(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
+		//암호를 인코딩 처리합니다. 조건, 암호를 변경하는 값이 있을때
+		if(!memberVO.getUser_pw().isEmpty()) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String rawPassword = memberVO.getUser_pw();
+			memberVO.setUser_pw(passwordEncoder.encode(rawPassword));
+		}
+		memberService.updateMember(memberVO);
+		rdat.addFlashAttribute("msg", "회원정보수정");//회원정보수정 성공했습니다. 출력용
+		return "redirect:/member/mypage_form";
+	}
+	
 	//마이페이지 폼호출 GET방식, 회원수정폼이라서 model담아서 변수값을 전송하는 것이 필요
 	@RequestMapping(value="/member/mypage_form", method=RequestMethod.GET)
 	public String mypage_form(HttpServletRequest request, Model model) throws Exception {
@@ -41,7 +64,8 @@ public class HomeController {
 		//jsp에서 발생된 세션을 가져오려고 하기 때문에 HttpServletRequest객체가 사용됩니다.
 		HttpSession session = request.getSession();//싱글톤객체
 		String user_id = (String) session.getAttribute("session_userid");
-		model.addAttribute("memberVO", null);
+		//memberService에서 1개의 레코드를 가져옵니다. model담아서 jsp로 보냅니다.
+		model.addAttribute("memberVO", memberService.readMember(user_id));
 		return "home/member/mypage";//.jsp 생략
 	}
 	

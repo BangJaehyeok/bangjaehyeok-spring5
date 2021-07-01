@@ -65,7 +65,7 @@ public class LoginController {
 			userid = ((UserDetails) principal).getUsername();
 			//위에서 구한 변수 3개 enabled, levels, userid를 세션변수로 저장(아래)
 			session.setAttribute("session_enabled", enabled);//로그인여부확인
-			session.setAttribute("session_levels", levels);//로그인한 사람의 권한 확인
+			session.setAttribute("session_levels", levels);//로그인한 회원의 권한
 			session.setAttribute("session_userid", userid);//로그인한 유저아이디를 출력
 			MemberVO memberVO = memberService.readMember(userid);
 			session.setAttribute("session_username", memberVO.getUser_name());

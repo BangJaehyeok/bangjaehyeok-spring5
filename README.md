@@ -10,6 +10,11 @@
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
+#### 20210701(목) 작업
+- 스프링시큐리티 내장클래스에서 user_pw(admin1234)와 password(해시값)비교함수
+passwordEncoder.matches(rawPassword(유저입력비밀번호), encodedPassword(해시값))
+
+
 #### 20210630(수) 작업.
 - 댓글 Delete 구현 후 마무리
 - 스프링시큐리티 로그인및 권한체크 설정 후 사용자단 로그인 구현 예정.(관리자단  끝이면서, 사용자단 시작)

@@ -66,7 +66,7 @@ $(document).ready(function() {
 	<div class="bodytext_area box_inner">
 		<div class="myinfo">내 정보</div>
 		<!-- 폼영역 -->
-		<form method="POST" name="mypage_form" action="/member/mypage" class="appForm">
+		<form method="POST" name="join_form" action="/member/mypage" class="appForm">
 			<fieldset>
 				<legend>회원가입폼</legend>
 				<p class="info_pilsoo pilsoo_item">필수입력</p>
@@ -133,10 +133,18 @@ $(document).ready(function() {
 <script>
 $(document).ready(function(){
 	$("#btn_leave").click(function(){
-		//alert("삭제버튼 준비중입니다.");
-		var form_leave = $("form[name='join_form']");
-		alert($("select[name='enabled']").val());
-		//위 값을 false, 0 둘중 하나로 바꾼 후 submit 예정.
+		if(confirm('정말로 탈퇴하시겠습니까?')) {
+			//alert("삭제버튼 준비중입니다.");
+			var form_leave = $("form[name='join_form']");
+			$("option:eq(0)","select[name='enabled']").val("false");//Set
+			//$("select[name='enabled']").html("<option value='false'>탈퇴</option>");//select Set
+			//alert($("select[name='enabled']").val());//Get
+			//위 값을 false, 0 둘중 하나로 바꾼 후 submit 예정.
+			form_leave.attr("action","/member/mypage_leave");//크롬 오동작으로 추가한 코드
+			form_leave.submit();//삭제는 아니고, enabled 필드값을 수정하는 것.
+			//탈퇴를 했다면 로그아웃 처리도 같이 되어야함.
+			//location.replace("/logout");	크롬에서는 오동작을 일으켜서 자바스크립트처리는 안함.
+		}
 	});
 });
 </script>

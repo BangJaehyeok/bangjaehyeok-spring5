@@ -18,6 +18,14 @@
 @media all and (min-width:1066px) {
 	
 }
+.radio_area {
+	box-sizing: border-box;
+	padding: 10px;
+}
+.gender {
+	padding: 4px 10px;
+	font-size: 14px;
+}
 </style>
 <script>
 // 회원가입 전용 유효성 검사 부분
@@ -57,45 +65,51 @@ $(document).ready(function() {
 	<!-- 메인본문영역 -->
 	<div class="bodytext_area box_inner">
 		<!-- 폼영역 -->
-		<form method="POST" name="join_form" action="join.html" class="appForm">
+		<form method="POST" name="join_form" action="/join" class="appForm">
 			<fieldset>
 				<legend>회원가입폼</legend>
-				<p class="info_pilsoo pilsoo_item">필수입력</p>
+				<p class="info_pilsoo pilsoo_item">필수입력(회원가입 후 관리자가 승인해줘야만 로그인이 가능합니다!)</p>
 				<ul class="app_list">
 					<li class="clear">
-						<label for="email_lbl" class="tit_lbl pilsoo_item">이메일</label>
-						<div class="app_content"><input type="email" name="email" class="w100p" id="email_lbl" placeholder="이메일을 입력해주세요" required/></div>
+						<label for="user_id_lbl" class="tit_lbl pilsoo_item">사용자ID</label>
+						<div class="app_content"><input type="text" name="user_id" class="w100p" id="user_id_lbl" placeholder="사용자ID를 입력해주세요" required/></div>
 					</li>
 					<li class="clear">
-						<label for="name_lbl" class="tit_lbl pilsoo_item">작성자명</label>
-						<div class="app_content"><input type="text" name="name" class="w100p" id="name_lbl" placeholder="이름을 입력해주세요" required/></div>
-					</li>
-					<li class="clear">
-						<label for="password_lbl" class="tit_lbl pilsoo_item">비밀번호</label>
+						<label for="password_lbl" class="tit_lbl pilsoo_item">암호</label>
 						<div class="app_content">
-							<input type="password" name="password" class="w100p" id="password_lbl" placeholder="비밀번호를 입력해주세요" required/>
+							<input type="password" name="user_pw" class="w100p" id="password_lbl" placeholder="비밀번호를 입력해주세요" required/>
 						</div>
 					</li>
 					<li class="clear">
-						<label for="password_chk_lbl" class="tit_lbl pilsoo_item">비밀번호확인</label>
-						<div class="app_content"><input type="password" name="password_chk" class="w100p" id="password_chk_lbl" placeholder="비밀번로를 다시 입력해주세요" required/></div>
+						<label for="password_chk_lbl" class="tit_lbl pilsoo_item">암호확인</label>
+						<div class="app_content"><input type="password" name="password_chk" class="w100p" id="password_chk_lbl" placeholder="비밀번호를 다시 입력해주세요" required/></div>
 					</li>
 					<li class="clear">
-						<label for="tel_lbl" class="tit_lbl pilsoo_item">연락처</label>
-						<div class="app_content"><input type="digits" name="tel" class="w100p" id="tel_lbl" placeholder="휴대폰'-'없이 숫자만 입력해주세요" required/></div>
+						<label for="user_name_lbl" class="tit_lbl pilsoo_item">사용자이름</label>
+						<div class="app_content"><input type="txt" name="user_name" class="w100p" id="user_name_lbl" placeholder="사용자 이름을 입력해주세요" required/></div>
 					</li>
 					<li class="clear">
-						<label for="gender_lbl" class="tit_lbl pilsoo_item">성별</label>
+						<label for="email_lbl" class="tit_lbl pilsoo_item">이메일</label>
+						<div class="app_content"><input type="email" name="email" class="w100p" id="email_lbl" placeholder="이메일 주소를 입력해주세요" required/></div>
+					</li>
+					<li class="clear">
+						<label for="point_lbl" class="tit_lbl pilsoo_item">포인트</label>
+						<div class="app_content"><input value="0" readonly type="digits" name="point" class="w100p" id="point_lbl" required/></div>
+					</li>
+					<li class="clear">
+						<label for="gender_lbl" class="tit_lbl pilsoo_item">로그인여부</label>
+						<div class="app_content">
+							<input checked value="0" type="radio" name="enabled" class="css-radio" id="enabled_lbl" />
+							<label for="enabled_lbl">금지</label>
+						</div>
+					</li>
+					<li class="clear">
+						<label for="gender_lbl" class="tit_lbl pilsoo_item">권한여부</label>
 						<div class="app_content radio_area">
-							<input type="radio" name="gender" class="css-radio" id="man_lbl" checked="" />
-							<label for="man_lbl">남</label>
-							<input type="radio" name="gender" class="css-radio" id="woman_lbl" />
-							<label for="woman_lbl">여</label>
+							<select name="levels" class="gender" required>
+								<option value="ROLE_USER">일반사용자</option>
+							</select>
 						</div>
-					</li>
-					<li class="clear">
-						<label for="comment_lbl" class="tit_lbl pilsoo_item">문의내용</label>
-						<div class="app_content"><textarea name="comment" class="w100p" id="comment_lbl" placeholder="내용을 입력해주세요" required></textarea></div>
 					</li>
 					<li class="clear">
 						<label for="agree_lbl" class="tit_lbl pilsoo_item">개인정보활용동의</label>
@@ -105,7 +119,7 @@ $(document).ready(function() {
 					</li>
 				</ul>
 				<p class="btn_line">
-				<button class="btn_baseColor">회원가입</button>
+				<button type="submit" class="btn_baseColor" id="btn_insert" disabled style="opacity:0.5;">회원가입</button>
 				</p>	
 			</fieldset>
 		</form>
@@ -116,3 +130,33 @@ $(document).ready(function() {
 <!-- //메인콘텐츠영역 -->
 
 <%@ include file="./include/footer.jsp" %>
+<script>
+$(document).ready(function(){
+	$("#user_id_lbl").change(function(){
+		if($(this).val() != "") {
+			$.ajax({
+				type:"get",
+				url:"/id_check?user_id="+$(this).val(),
+				dataType:"text",
+				success:function(result) {
+					if(result == 0) {//중복ID가 존재하지 않으면
+						$("#btn_insert").attr("disabled",false);
+						$("#btn_insert").css("opacity","1");
+						$("#msg").remove();
+						$("#user_id_lbl").after("<div id='msg' style='color:blue'>사용가능한 ID입니다.</div>");
+					} else {//중복아이디가 존재할때 아래 실행
+						$("#btn_insert").attr("disabled",true);
+						$("#btn_insert").css("opacity","0.5");
+						$("#msg").remove();
+						$("#user_id_lbl").after("<div id='msg'style='color:red'>중복 ID가 존재합니다.</div>");
+					}
+				},
+				error:function() {
+					alert("RestAPI서버가 작동하지않습니다. 다음에 이용해주세요.");
+				}
+			});
+			
+		}
+	});
+});
+</script>

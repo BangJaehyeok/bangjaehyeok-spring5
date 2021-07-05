@@ -120,7 +120,7 @@ public class DataSourceTest {
 		MemberVO memberVO = new MemberVO();
 		//insert쿼리에 저장할 객체
 		memberVO.setUser_id("user_del");
-		memberVO.setUser_pw("1234");//스프링시큐리티 중 512바이트 암호화로 처리예정
+		memberVO.setUser_pw("1234");//스프링시큐리티5버전으로 암호화로 처리예정
 		memberVO.setEmail("user@test.com");
 		memberVO.setPoint(10);
 		memberVO.setEnabled(true);

@@ -400,6 +400,7 @@ public class AdminController {
 		pageVO.setBoard_type(board_type);
 		List<BoardVO> latestBoard = boardService.selectBoard(pageVO);
 		model.addAttribute("board_name", board_name);
+		model.addAttribute("board_type", board_type);
 		model.addAttribute("latestBoard", latestBoard);
 		return "admin/latest/latest_board";//.jsp생략, 최신게시물을 출력하는 결과 페이지생성
 	}

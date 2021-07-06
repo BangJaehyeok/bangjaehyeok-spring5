@@ -23,7 +23,7 @@
 	<!-- 알리아스Alias (별칭,별명) dataSource로 만든다. 여러 DB와 호환되게 만들게된다. 오라클지원, Mysql, Hsql 등 여러 DB서버와 호환되게 만드는데 필요. -->
 	<alias name="dataSource-${DbType}" alias="dataSource"/>
 	<!-- embeded는 내장형(앱용)으로서 간단한 용도의 DB구조에 사용. file구조가 아닌 메모리구조로 기능
-		특징 : 톰캣과 라이프사이클을 같이 합니다. -->
+		특징 : 톰캣과 라이프사이클을 같이 합니다.  -->
 	
 	
 	<!-- /embeded/hsql_file.db를 자동으로 생성함(폴더포함) -->

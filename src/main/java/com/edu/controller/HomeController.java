@@ -81,6 +81,7 @@ public class HomeController {
 		boardVO.setReal_file_names(real_file_names);
 		//DB테이블 데이터 가져오기
 		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("checkImgArray", commonUtil.getCheckImgArray());
 		return "home/board/board_view";
 	}
 	

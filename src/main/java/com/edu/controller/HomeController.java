@@ -72,11 +72,15 @@ public class HomeController {
 		String[] real_file_names = new String[listAttachVO.size()];
 		int index = 0;
 		for(AttachVO file:listAttachVO) {//세로 데이터를 가로데이터로 변경처리
-			
-			
+			save_file_names[index] = file.getSave_file_name();
+			real_file_names[index] = file.getReal_file_name();
+			index++;			
 		}
+		BoardVO boardVO = boardService.readBoard(bno);//1개의 레코드가 입력됨.
+		boardVO.setSave_file_names(save_file_names);
+		boardVO.setReal_file_names(real_file_names);
 		//DB테이블 데이터 가져오기
-		model.addAttribute("boardVO", boardService.readBoard(bno));
+		model.addAttribute("boardVO", boardVO);
 		return "home/board/board_view";
 	}
 	

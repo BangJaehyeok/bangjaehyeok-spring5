@@ -47,9 +47,29 @@
            </li>
        </ul>
        <p class="btn_line txt_right">
-           <a href="/home/board/board_list?page=${pageVO.page}&search_type=${pageVO.search_type}" class="btn_bbs">목록</a>
+           <a href="/home/board/board_list?page=${pageVO.page}&search_type=${pageVO.search_type}" class="btn btn-default">목록</a>
+           <button type="button" id="btn_update" class="btn btn-primary">수정</button>
+           <button type="button" id="btn_delete" class="btn btn-danger">삭제</button>           
        </p>
-       
+       <form name="hide_form" id="hide_form" method="post" action="">
+       		<input type="hidden" name="bno" value="${boardVO.bno}">
+       		<input type="hidden" name="page" value="${pageVO.page}">
+       </form>
+       <script>
+       $(document).ready(function(){
+    	   var form = $("#hide_form");
+    	   $("#btn_update").click(function(){
+    		   if(confirm("정말로 삭제하시겠습니까?")) {
+	    		form.attr("action","/home/board/board_delete");
+	    		form.submit();
+    		  }    		   
+   	   	   });
+   	   $("#btn_delete").click(function(){
+   		   
+   	   });
+    	   
+       });
+       </script>
    </div>
    <!-- //메인본문영역 -->
 

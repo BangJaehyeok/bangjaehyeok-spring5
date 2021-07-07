@@ -246,7 +246,7 @@ input::placeholder {color: #999;} /* IE 브라우저용 스타일 = 크로스브
     padding: 20px 15px !important;
 }
 .btn_bbs { /* 모바일 전용 */
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     display: inline-block;
     width: 100%;
     height: 35px;
@@ -255,6 +255,7 @@ input::placeholder {color: #999;} /* IE 브라우저용 스타일 = 크로스브
     background: #384d75;
     color: #fff !important;
     text-align: center;
+    border-style:none;
 }
 
 /* //게시판 글보기 영역 */

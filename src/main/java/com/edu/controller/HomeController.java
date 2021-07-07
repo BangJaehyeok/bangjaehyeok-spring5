@@ -1,5 +1,6 @@
 package com.edu.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -63,6 +64,20 @@ public class HomeController {
 	//public jsp파일명리턴형식 콜백함수(자동실행)
 	//return "파일명";
 	
+	//게시물 삭제 처리호출 POST 추가
+	@RequestMapping(value="/home/board/board_delete", method=RequestMethod.POST)
+	public String board_delete(@RequestParam("bno")Integer bno, RedirectAttributes rdat) throws Exception {
+		//부모테이블 삭제전 삭제할 파일들 변수로 임시 저장(아래)
+		List<AttachVO> delFiles = boardService.readAttach(bno);//세로값
+		//테이블 1개 레코드 삭제처리
+		boardService.deleteBoard(bno);
+		//첨부파일 있으면 삭제
+		for(AttachVO file:delFiles) {//향상된 for문에서는 조건문필요없다.			
+			File target = null;
+		}
+		rdat.addFlashAttribute("msg", "게시물 삭제");//성공시 메세지 출력 변수
+		return "redirect:/home/board/board_list";//성공시 이동할 주소
+	}
 	//게시물 상세보기 호출 GET 추가
 	@RequestMapping(value="/home/board/board_view", method=RequestMethod.GET)
 	public String board_view(Model model,@RequestParam("bno")Integer bno,@ModelAttribute("pageVO")PageVO pageVO) throws Exception {

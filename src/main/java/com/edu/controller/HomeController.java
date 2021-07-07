@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.edu.service.IF_BoardService;
 import com.edu.service.IF_MemberService;
 import com.edu.util.CommonUtil;
+import com.edu.vo.AttachVO;
 import com.edu.vo.BoardVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageVO;
@@ -62,6 +63,23 @@ public class HomeController {
 	//public jsp파일명리턴형식 콜백함수(자동실행)
 	//return "파일명";
 	
+	//게시물 상세보기 호출 GET 추가
+	@RequestMapping(value="/home/board/board_view", method=RequestMethod.GET)
+	public String board_view(Model model,@RequestParam("bno")Integer bno,@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
+		//첨부파일 가져오기
+		List<AttachVO> listAttachVO = boardService.readAttach(bno);
+		String[] save_file_names = new String[listAttachVO.size()];
+		String[] real_file_names = new String[listAttachVO.size()];
+		int index = 0;
+		for(AttachVO file:listAttachVO) {//세로 데이터를 가로데이터로 변경처리
+			
+			
+		}
+		//DB테이블 데이터 가져오기
+		model.addAttribute("boardVO", boardService.readBoard(bno));
+		return "home/board/board_view";
+	}
+	
 	//게시물 등록 처리 POST 호출 추가
 	@RequestMapping(value="/home/board/board_insert", method=RequestMethod.POST)
 	public String board_insert(RedirectAttributes rdat,
@@ -81,8 +99,13 @@ public class HomeController {
 		}
 		//Attach테이블 처리할 첨부파일 가상변수값을 입력
 		boardVO.setSave_file_names(save_file_names);
-		boardVO.setReal_file_names(real_file_names);		
-		//데이터베이스 테이블 처리
+		boardVO.setReal_file_names(real_file_names);
+		//타이틀, content 내용 시큐어코딩 처리(아래4줄)
+		String rawTitle = boardVO.getTitle();
+		String rawContent = boardVO.getContent();
+		boardVO.setTitle(commonUtil.unScript(rawTitle));
+		boardVO.setContent(commonUtil.unScript(rawContent));
+		//DB 테이블 처리
 		boardService.insertBoard(boardVO);
 		rdat.addFlashAttribute("msg", "게시물 등록");//출력:게시물 등록이 성공햇습니다.
 		return "redirect:/home/board/board_list";

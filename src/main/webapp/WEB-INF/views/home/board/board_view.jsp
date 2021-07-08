@@ -58,13 +58,16 @@
        <script>
        $(document).ready(function(){
     	   var form = $("#hide_form");
-    	   $("#btn_update").click(function(){
+    	   $("#btn_delete").click(function(){
     		   if(confirm("정말로 삭제하시겠습니까?")) {
 	    		form.attr("action","/home/board/board_delete");
 	    		form.submit();
     		  }    		   
    	   	   });
-   	   $("#btn_delete").click(function(){
+   	   $("#btn_update").click(function(){
+   		   form.attr("action","/home/board/board_update_form");
+   		   form.attr("method","get");
+   		   form.submit();
    		   
    	   });
     	   

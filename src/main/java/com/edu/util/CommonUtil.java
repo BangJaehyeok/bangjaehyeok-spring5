@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,7 @@ public class CommonUtil {
 		public String getUploadPath() {
 			return uploadPath;
 		}
+		
 	//첨부파일 개별삭제 Ajax로 받아서 처리, @ResponseBody 사용
 	@RequestMapping(value="/file_delete", method=RequestMethod.POST)
 	@ResponseBody
@@ -177,7 +179,7 @@ public class CommonUtil {
 		return checkImgArray;
 	}
 
-	//RestAPI 서버 맛보기 ID 중복체크(제대로 만들면 @RestController사용)
+	//관리자단에서 사용 : RestAPI서버 맛보기ID중복체크(제대로 만들면 @RequestController사용)
 	@RequestMapping(value="/id_check", method=RequestMethod.GET)
 	@ResponseBody //반환받는 값의 내용(body)만 반환하겠다는 것을 명시. 헤더,푸터 등은 제외.
 	public String id_check(@RequestParam("user_id")String user_id) throws Exception {
@@ -191,6 +193,20 @@ public class CommonUtil {
 			}
 		}
 	return memberCnt;//RestAPI는 값만 반환한다.
+	}
+	//사용자단에서 사용 : JsonView방식으로 RestAPi를 구현실습
+	@RequestMapping(value="/id_check_2010", method=RequestMethod.GET)
+	public String id_check_2010(@RequestParam("user_id")String user_id,Model model) throws Exception {
+		String memberCnt = "1";//중복ID가 있는것ㄱ을 기본값으로 지정
+		if(!user_id.isEmpty()) {
+			MemberVO memberVO = memberService.readMember(user_id);
+			if(memberVO == null) {//중복 ID가 없다염
+				memberCnt="0";
+			}
+		}
+		model.addAttribute("memberCnt", memberCnt);
+		return "jsonView";
+		//jsp파일명 대신에 servlet에서 정의한 스프링빈 ID명을 적으면, json객체로 결과를 반환합니다.
 	}
 	//파일 업로드 공통 메서드(AdminController에서 사용, 나중엔 사용자단 HomeController에서도 사용)
 	public String fileUpload(MultipartFile file) throws IOException {

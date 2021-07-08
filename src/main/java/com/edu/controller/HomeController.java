@@ -67,53 +67,51 @@ public class HomeController {
 	//public jsp파일명리턴형식 콜백함수(자동실행)
 	//return "파일명";
 	
-	//게시물 수정처리 POST 추가
-	@RequestMapping(value="/home/board/board_update", method=RequestMethod.POST)
-	public String board_update(@RequestParam("file")MultipartFile[] files,
-			BoardVO boardVO,PageVO pageVO,RedirectAttributes rdat) throws Exception {
-		//첨부파일 처리, delFiles만드는 이유는 첨부파일은 수정시 기존파일 삭제후 입력해야하기 때문
-		List<AttachVO> delFiles = boardService.readAttach(boardVO.getBno());
-		//폼에서 전송받은 첨부파일 files를 가로배치로 만들기 위해서 배열변수 생성
-		String[] real_file_names = new String[files.length];
-		String[] save_file_names = new String[files.length];
-		int index = 0;
-		for(MultipartFile file:files) {
-			//배열 인덱스 위치에 따라서 전송받은 파일과 기존파일 인덱스를 비교해서 삭제 후 저장 처리
-			if(file.getOriginalFilename() != "") {
-				int sun = 0;//아래 for문을 위한 초기변수 생성
-				for(AttachVO delfile:delFiles) {
-					if(index==sun) {
-						File target =  new File(commonUtil.getUploadPath(),
-								delfile.getSave_file_name());//저장소에서 저장된 UUID파일명을 타겟으로 지정.
-						if(target.exists()) {
-							target.delete();//실제 파일이 지워짐. 신규파일을 덮어쓰려고 지움.
-							boardDAO.deleteAttach(delfile.getSave_file_name());//save_file_name이 UUID로서 PK값이다.
+	//게시물 수정 처리 POST 추가
+		@RequestMapping(value="/home/board/board_update",method=RequestMethod.POST)
+		public String board_update(@RequestParam("file")MultipartFile[] files,PageVO pageVO,BoardVO boardVO,RedirectAttributes rdat) throws Exception {
+			//첨부파일 처리, delFiles만드는 이유는 첨부파일은 수정시, 기존파일 삭제 후 입력해야 하기 때문에
+			List<AttachVO> delFiles = boardService.readAttach(boardVO.getBno());
+			//폼에서 전송받은 첨부파일 files 가로배치로 만들기 위해서 배열변수 생성
+			String[] real_file_names = new String[files.length];//전송된 files없다면 null이 들어감.
+			String[] save_file_names = new String[files.length];
+			int index = 0;
+			for(MultipartFile file:files) {
+				//배열 인덱스 위치에 따라서 전송받은 파일과 기존파일과 인덱스를 비교해서 삭제 후 저장 처리
+				if(file.getOriginalFilename() != "") {
+					int sun = 0;//아래 for문을 위한 초기변수 생성
+					for(AttachVO delfile:delFiles) {
+						if(index==sun) {
+							File target = new File(commonUtil.getUploadPath(),delfile.getSave_file_name());//저장소에 저장된 UUID파일명을 타겟으로 지정.
+							if(target.exists()) {
+								target.delete();//실제 파일이 지워짐:신규파일을 덮어 쓰려고 지움.
+								boardDAO.deleteAttach(delfile.getSave_file_name());//save_file_name이 UUID로서 PK값임.
+							}
 						}
+						sun = sun + 1;//기존파일 삭제할 인덱스 1씩 증가
 					}
-					sun++;//기존 파일 삭제할 인덱스 1씩 증가
+					//신규파일 저장처리, 물리적으로 저장소 저장
+					String save_file_name = commonUtil.fileUpload(file);//저장소에 저장후 UUID파일명을 반환
+					save_file_names[index] = save_file_name;
+					real_file_names[index] = file.getOriginalFilename();//UI용 파일명.
+				} else {
+					save_file_names[index] = null;
+					real_file_names[index] = null;
 				}
-				//신규파일 저장처리, 물리적으로 저장소 저장
-				String save_file_name = commonUtil.fileUpload(file);//저장소에 저장후 UUID파일명을 반환
-				save_file_names[index] = save_file_name;
-				real_file_names[index] = file.getOriginalFilename();//UI용 파일명
-			} else {
-				save_file_names[index] = null;
-				real_file_names[index] = null;
+				index = index + 1;//신규파일 등록 인덱스 1씩 증가
 			}
-			index++;
+			boardVO.setSave_file_names(save_file_names);
+			boardVO.setReal_file_names(real_file_names);
+			//시큐어 코딩처리
+			String rawTitle = boardVO.getTitle();
+			String rawContent = boardVO.getContent();
+			boardVO.setTitle(commonUtil.unScript(rawTitle));
+			boardVO.setContent(commonUtil.unScript(rawContent));
+			//게시판테이블 처리
+			boardService.updateBoard(boardVO);
+			rdat.addFlashAttribute("msg", "게시물 수정");//출력메세지: 게시물 수정 이(가) 성공~
+			return "redirect:/home/board/board_view?bno="+boardVO.getBno()+"&page="+pageVO.getPage();//수정하고 뷰페이지로 이동
 		}
-		boardVO.setSave_file_names(save_file_names);
-		boardVO.setReal_file_names(real_file_names);
-		//시큐어코딩처리
-		String rawTitle = boardVO.getTitle();
-		String rawContent = boardVO.getContent();
-		boardVO.setTitle(commonUtil.unScript(rawTitle));
-		boardVO.setContent(commonUtil.unScript(rawContent));		
-		//게시판 테이블 처리
-		boardService.updateBoard(boardVO);
-		rdat.addFlashAttribute("msg", "게시물 수정");//출력메세지가 게시물 수정이(가) 성공하였습니다.
-		return "redirect:/home/board/board_view?bno="+boardVO.getBno()+"&page="+pageVO.getPage();//수정하고 뷰페이지로 이동
-	}
 	//게시물 수정 폼 호출 GET 추가
 	@RequestMapping(value="/home/board/board_update_form", method=RequestMethod.GET)
 	public String board_update_form(@RequestParam("bno")Integer bno,@ModelAttribute("pageVO")PageVO pageVO,Model model)

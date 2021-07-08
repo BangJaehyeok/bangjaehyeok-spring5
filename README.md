@@ -11,13 +11,14 @@
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
 #### 20210708(목) 작업
-- 사용자단 게시물관리 CRUD중 Delete 마무리 후 Update 실습예정.
+- 사용자단 게시물관리 CRUD중 Delete 마무리 후 Update OK.
 - JSONView방식 (고전방식의 RestAPI처리) 실습
 - 사용자단 메인페이지(대시보드) 작업예정. 
 - 헤로쿠 휴면모드 깨우는 기능 추가 예정.
 
 - 우리나라 스프링기반 솔루션을 만들던 시기(스프링버전2.5-2015년즈음) RestAPI(jsonview방식)
 - 현재 2021년은 스프링버전5.x를 사용중 RestAPI(@RestController방식-@ResponseBody)
+- properties파일을 hsql, cloude를 cloude로 통일.
 
 #### 20210707(수) 작업
 - 헤로쿠는 30분간 아무작업이 없으면 휴면상태가 된다.

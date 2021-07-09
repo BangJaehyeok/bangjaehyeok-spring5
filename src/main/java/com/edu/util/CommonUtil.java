@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -47,7 +49,7 @@ public class CommonUtil {
 	@Inject
 	private IF_MemberService memberService;//스프링빈을 주입받아서(DI:의존성주입) 객체준비
 	@Inject
-	private IF_BoardDAO boardDAO;
+	private IF_BoardDAO boardDAO;	
 	
 	//첨부파일 업로드 또는 다운로드 또는 삭제,수정,인서트에 모두 사용될 저장경로 1개를 지정해서 전역으로 사용
 		@Resource(name="uploadPath")

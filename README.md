@@ -10,6 +10,10 @@
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
+
+#### 20210709(금) 작업
+-
+
 #### 20210708(목) 작업
 - 사용자단 게시물관리 CRUD중 Delete 마무리 후 Update OK.
 - properties파일을 hsql, cloude를 cloude로 통일.

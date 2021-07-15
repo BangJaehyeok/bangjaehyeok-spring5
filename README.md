@@ -12,10 +12,48 @@
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
 
-#### 20210714(수) 작업
+#### 데이터의 이동
+- VO클래스의 이동 : 매퍼쿼리<->DAO<->Service<->Controller<->jsp(뷰)
+
+#### 변수값(데이터) ReplyVO데이터클래스를 기준으로
+- JSON데이터 : 크롬에서 부메랑으로  List<ReplyVO>형태의 데이터확인
+- JSON데이터구조 : ArrayList(표) + HashMap(Key:Value)
+
+ "replyList": [
+	{
+	    "rno": 5,
+	    "reply_text": "부메랑댓글 입력테스트123",
+	    "replyer": "admin",
+	    "reg_date": 1626311199059,
+	    "update_date": 1626311199059,
+	    "bno": 2
+	},
+	{
+	    "rno": 4,
+	    "reply_text": "부메랑댓글 입력테스트",
+	    "replyer": "admin",
+	    "reg_date": 1626310998151,
+	    "update_date": 1626310998151,
+	    "bno": 2
+	}
+	
+- ArrayList 클래스형 데이터 : List<ReplyVO> replyList = new ArrayList(); DB쿼리결과
+- 위 ArrayList구조: List(인터페이스) 안에 ArrayList(임플리먼트클래스)
+ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
+-HashMap클래스형 데이터 : Map<String,Object> mapData = new HashMap<String,Object>();
+- 위 HashMap구조 : Map(인터페이스-메서드명) > HashMap(구현클래스)
+- Hash해시태그=#=그물망(해시)=좌표(x,y)=(Key:Value)
+
+#### 20210715(목) 작업
 - 문서작업(제출용)
-- 네이버 로그인 부분 마무리
-- 요청 URL생성 -> 인증체크(네이버로그인컨트롤러 메서드 추가) -> 성공/실패/취소시 콜백URL로 이동해서 처리하는 메서드 생성
+- 관리자대시보드에서 회원ID이미지업로드 및 보이기 처리예정
+- jsp템플릿인 타일즈 실습할 예정.
+
+
+#### 20210714(수) 작업
+-
+- 네이버 로그인 부분 마무리O
+- 요청 URL생성 -> 인증체크(네이버로그인컨트롤러 메서드 추가) -> 성공/실패/취소시 콜백URL로 이동해서 처리하는 메서드 생 
 - 관리자대시보드에서 회원ID이미지업로드 및 보이기 처리예정
 - jsp템플릿인 타일즈 실습할 예정.
 

@@ -242,4 +242,14 @@ public class CommonUtil {
 		File target = new File(makeFolder,user_id+".png");//user_id는 PK라서 기존파일이 있다면 Overwrite하면서 저장됩니다.
 		FileCopyUtils.copy(fileData, target);//첨부파일이 저장이 됩니다.
 	}
+
+	public void profile_delete(String user_id, HttpServletRequest request) {
+		// 프로필 이미지가 프로필폴더에 존재하면 삭제하는 로직
+		String folderPath = request.getServletContext().getRealPath("/resources/profile");
+		File target = new File(folderPath,user_id+".png");
+		if(target.exists()) {
+			target.delete();//프로필파일이 실제로 지워짐
+		}
+		
+	}
 }

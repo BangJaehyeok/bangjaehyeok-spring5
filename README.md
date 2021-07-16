@@ -44,6 +44,22 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - 위 HashMap구조 : Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그=#=그물망(해시)=좌표(x,y)=(Key:Value)
 
+#### 20210716(금) 작업
+- jsp템플릿인 타일즈 실습할 예정.
+- 알고리즘 다이어그램기반으로 자바코딩테스트예정.
+
+- jsp템플릿 작업순서 :
+- 1. pom.xml 타일즈 모듈 라이브러리 추가 OK
+- 2. tiles-context.xml 타일즈 설정 파일 추가 OK
+- 3. servlet-context.xml에서 타일즈용 뷰리졸버 빈 추가 OK
+- 4. 위 설정파일을 기준으로 tiles폴더 및 layouts 폴더 생성 후 layout.jsp생성 OK
+- 5. 기존 home/include 폴더의 header.jsp와 footer.jsp 파일 복사해서 그대로 사용 OK
+- 6. 기존 home/include.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리 OK
+- 7. HomeController에서 기존 @RequestMapping 복사해서 타일즈용으로 추가
+
+- 타일즈 역할 : jsp 템플릿 중 하나, jsp구조(레이아웃)를 체계적으로 관리하는 모듈
+- include(헤더,푸터)를 대체합니다.
+
 #### 20210715(목) 작업
 - 문서작업(제출용)
 - 관리자대시보드에서 회원ID이미지업로드 및 보이기 처리예정

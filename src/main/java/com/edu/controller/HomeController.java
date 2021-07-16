@@ -348,7 +348,8 @@ private IF_BoardDAO boardDAO;
 		pageVO.setQueryPerPageNum(5);//공지사항 5개, 보드타입필요(세션으로 처리안됨)
 		pageVO.setBoard_type("notice");
 		model.addAttribute("latestNotice", boardService.selectBoard(pageVO));//공지사항 최근 게시물
-		return "home/index";//확장자가 생략 .jsp가 생략됨.
+		//return "home/index";//타일즈 적용 전
+		return "index.tiles";//타일즈 적용 후 tiles폴더 안에 index.jsp를 호출
 	}
 	
 }

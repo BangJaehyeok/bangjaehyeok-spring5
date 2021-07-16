@@ -44,6 +44,10 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - 위 HashMap구조 : Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그=#=그물망(해시)=좌표(x,y)=(Key:Value)
 
+#### 20210719(월) 작업
+- 알고리즘 다이어그램기반으로 자바코딩테스트예정. 
+
+
 #### 20210716(금) 작업
 - jsp템플릿인 타일즈 실습할 예정.
 - 알고리즘 다이어그램기반으로 자바코딩테스트예정.
@@ -55,10 +59,55 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - 4. 위 설정파일을 기준으로 tiles폴더 및 layouts 폴더 생성 후 layout.jsp생성 OK
 - 5. 기존 home/include 폴더의 header.jsp와 footer.jsp 파일 복사해서 그대로 사용 OK
 - 6. 기존 home/include.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리 OK
-- 7. HomeController에서 기존 @RequestMapping 복사해서 타일즈용으로 추가
+- 7. HomeController에서 기존 @RequestMapping 복사해서 타일즈용으로 추가 OK
 
 - 타일즈 역할 : jsp 템플릿 중 하나, jsp구조(레이아웃)를 체계적으로 관리하는 모듈
 - include(헤더,푸터)를 대체합니다.
+
+- 코딩테스트 종류 : 1.'devth구름'같은 온라인코딩테스트 (디버그)
+- 2.회사에서 PC제공해서 PC의 이클립스에서 코딩테스트 (디버그)
+- 3. 종이에 코딩테스트 : 수두코딩(Pseudo-code)으로 로직만 확인 (디버그 없음)
+- 문제분석 -> 다이어그램만들기 -> 자바코딩 테스트
+- 코딩테스트 알고리즘
+
+```
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N;
+		int[] questions;
+		N = Integer.parseInt(br.readLine());//키보드로 입력받는 커서가 나옴
+		//System.out.println("키보드로 입력한 값은 " + N);
+		questions = new int[N];//키보드로 입력한 값N으로 난이도배열의 크기를 지정합니다.
+		String str = br.readLine();//키보드로 입력받는 커서가 나옴. 단, 숫자사이에 공백을 집어넣습니다.
+		//문자열로 입력받은 문자를 questions 정수형 배열변수에 하나씩 집어넣습니다.
+		String[] strArray = str.split(" ");
+		for(int i=0; i<N; i++) {
+			questions[i] = Integer.parseInt(strArray[i]);
+		}
+		//System.out.println("난이도 입력값 " + Arrays.toString(questions));
+		Arrays.sort(questions);//입력받은 questions배열을 오름차순정렬한다.
+		int count = 0;
+		int before = questions[0];
+		//int current = 0;
+		for(int current:questions) {
+			if(before != current) {
+				count = count+1;
+			}
+			if(count == 2) { break; }
+			before = current;
+		}
+		if(count >= 2) {
+			System.out.println("YES");
+		} else {
+			System.out.println("NO");
+		}
+	}
+}
+```
 
 #### 20210715(목) 작업
 - 문서작업(제출용)

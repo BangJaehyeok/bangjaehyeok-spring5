@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!-- 게시판용 CSS 임포트 -->
 <link rel="stylesheet" href="/resources/home/css/board.css">
 <script src="/resources/home/js/main.js"></script>

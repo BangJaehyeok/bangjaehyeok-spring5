@@ -279,7 +279,8 @@ private IF_BoardDAO boardDAO;
 	@RequestMapping(value="/join_form", method=RequestMethod.GET)
 	public String join_form() throws Exception {
 		
-		return "home/join";//.jsp생략
+		//return "home/join";//tiles적용 전 코드
+		return "join.tiles";//tiles폴더 안에 join.jsp를 호출
 	}
 	
 	//마이페이지에서 회원탈퇴 POST방식 처리만.

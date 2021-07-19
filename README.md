@@ -45,12 +45,215 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - Hash해시태그=#=그물망(해시)=좌표(x,y)=(Key:Value)
 
 #### 20210719(월) 작업
-- 알고리즘 다이어그램기반으로 자바코딩테스트. 
-- 코딩테스트 2번 문제 = 오름차순 정렬 코딩 지난번에 사용한 Arrays클래스 sort메서드 구성 연습
-- Temp변수를 사용해서 자리를 바꾸는 것이 중요.
+- 알고리즘 다이어그램기반으로 자바코딩테스트.
+- 코딩테스트 10번 문제 = 로또번호가 올바른 번호인지 확인. 조건1,2,3을 모두 만족해야 인정됨.
 
 ```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static boolean isValid(int[] Lotto, int n) {
+		//조건 1,2,3을 구현하는 코딩이 입력(아래)
+		if(n!= 6) {//조건1중 일부
+			return false;//현재 isValid메서드가 종료되면서 false를 변환합니다.
+		}
+		//조건1. 중복숫자 검사로직
+		for(int i=0;i<(n-1);i++) {
+			if(Lotto[i] == Lotto[i+1]) {
+				return false;//중복숫자가 있으면 현재 isValid를 종료하고 false를 반환.
+			}
+		}
+		//조건2 6개의 숫자범위는 1~45까지의 숫자만 인정됨.
+		
+		//조건3 현재 로또번호가 오름차순 정렬로 되어있는지 확인하는 로직.
+		return true;
+	}
+	public static void main(String[] args) {
+		int n;//6개의 로또번호 입력받을 크기
+		int[] Lotto;//배열변수 배열의 크기 필요
+		boolean Real;//진짜 로또번호인지 확인결과 참/거짓
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		Lotto = new int[n];		
+		for(int i=0;i<n;i++) {
+			Lotto[i] = sc.nextInt();
+		}
+		System.out.println("주운 로또번호는 "+Arrays.toString(Lotto));
+		Real = isValid(Lotto, n);
+		if(Real == true) {
+			System.out.println("주운 로또번호는 진짜입니다.");
+		}else{
+			System.out.println("주운 로또번호는 가짜입니다.");	
+		}
+	}	
+}
+```
 
+- 코딩테스트 5번문제 = 10진수를 2진수로 바꾸는 진법변환문제
+- 13 = 1101(2)
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int[] Bin = new int[10];//배열크기가 10인 정수형 배열변수 생성.
+		int Dec;//키보드로 입력받을 10진수 저장공간
+		int idx = 0;//반복문에 사용할 변수선언
+		int Mok, Nmg;//몫과 나머지 변수선언
+		Scanner sc = new Scanner(System.in);
+		Dec = sc.nextInt();
+		while(true) {
+			Mok = (int) Dec/2;
+			Nmg = Dec%2;//나머지를 구하는 공식
+			Bin[idx] = Nmg;
+			idx ++;
+			if(Mok==0) {
+				break;
+			}else{
+				Dec = Mok;
+			}
+		}//반복문 끝
+		//역수출력에 대한 로직 1101->1011 역수로 출력해야한다.
+		for(int i=idx-1;i>=0;i--) {
+			System.out.print(Bin[i] + " ");
+		}
+	}
+}
+```
+
+- 코딩테스트 4번 문제 = 삽입정렬 오름차순으로 코딩하기 : 10번의 반복
+키보드로 입력받은 배열의 값은 [5, 4, 3, 2, 1]
+내부 for문 0회전일때 Numbers값은 [5, 5, 3, 2, 1]
+내부 for문 1회전일때 Numbers값은 [4, 5, 5, 2, 1]
+내부 for문 0회전일때 Numbers값은 [4, 4, 5, 2, 1]
+내부 for문 2회전일때 Numbers값은 [3, 4, 5, 5, 1]
+내부 for문 1회전일때 Numbers값은 [3, 4, 4, 5, 1]
+내부 for문 0회전일때 Numbers값은 [3, 3, 4, 5, 1]
+내부 for문 3회전일때 Numbers값은 [2, 3, 4, 5, 5]
+내부 for문 2회전일때 Numbers값은 [2, 3, 4, 4, 5]
+내부 for문 1회전일때 Numbers값은 [2, 3, 3, 4, 5]
+내부 for문 0회전일때 Numbers값은 [2, 2, 3, 4, 5]
+1 2 3 4 5 
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int n;
+		int[] Numbers;
+		int insert, comp, Key;
+		Scanner sc = new Scanner(System.in);		
+		n = sc.nextInt();
+		Numbers = new int[n];
+		for(int i=0;i<n;i++) {
+			Numbers[i] = sc.nextInt();
+		}
+		System.out.println("키보드로 입력받은 배열의 값은 "+Arrays.toString(Numbers));
+		for(insert=1;insert<n;insert++) {
+			Key = Numbers[insert];//인덱스의1의 값 4를 삽입
+			for(comp=insert-1;comp>=0;comp--) {
+				if(Numbers[comp] > Key) {//5와 4를 비교
+					Numbers[comp+1] = Numbers[comp];//인덱스1의 자리에 5를 삽입
+				} else {
+					break;//내부 for빠져나감					
+				}
+				if(insert<n) {
+					System.out.println("내부 for문 "+comp+"회전일때 Numbers값은 "+Arrays.toString(Numbers));
+				}
+			}
+			//System.out.println("comp값은 "+ comp);
+			Numbers[comp+1] = Key;//인덱스0의 자리에 Key값 4를 집어넣습니다.
+			if(insert<n) {
+					//System.out.println("외부 for문 Key값은 "+Key+" Numbers값은 "+Arrays.toString(Numbers));
+			}
+		}
+		for(int i=0;i<n;i++) {
+			System.out.print(Numbers[i] + " ");
+		}
+	}
+}
+```
+
+- 코딩테스트 3번 문제 = 버블정렬(거품정렬) 오름차순으로 코딩.
+- 버블정렬 특징1 : 선택정렬과는 반대로 제일 큰 값이 오른쪽에 배치되면서 1회전이 종료. 선택정렬은 제일 작은 값이 왼쪽에 배치.
+- 특징2 : 비교할때 선택정렬은 비교할 기준자리가 있으나, 버블정렬은 바로 옆의 값을 비교하는 방식
+예를들어 중복 for문에서 외부1회전(내부 for문 1회전-4회전) : 20번 반복
+- 5  4  3  2  1(원시데이터)
+- 4, 5, 3, 2, 1(내부 for1회전)
+- 4, 3, 5, 2, 1(내부 for2회전)
+- 4, 3, 2, 5, 1(내부 for3회전)
+- 4, 3, 2, 1, 5(내부 for4회전)
+-외부2회전
+- 4  3  2  1  5(원시데이터)
+- 3, 4, 2, 1, 5(내부 for1회전)
+- 3, 2, 4, 1, 5(내부 for2회전)
+- 3, 2, 1, 4, 5(내부 for3회전)
+- 3, 2, 1, 4, 5(내부 for4회전)
+
+- 위를 미루어 보아 버블정렬이 선택정렬보다 더 많은 반복을 하는것을 알 수 있다.
+- 그래서 선택정렬이 버블정렬보다 시간복잡도가 더 적다.
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int n;
+		int[] Numbers;
+		int bubble, idx, Temp;
+		Scanner sc = new Scanner(System.in);//스캐너 객체 생성
+		n = sc.nextInt();
+		Numbers = new int[n];//배열의 크기 지정
+		for(int i=0;i<n;i++){
+			Numbers[i] = sc.nextInt();
+		}
+		System.out.println("입력된 배열값 확인 " + Arrays.toString(Numbers));
+		for(bubble=0;bubble<n;bubble++) {
+			for(idx=0;idx<(n-1);idx++) {
+				if(Numbers[idx] > Numbers[idx+1]) {
+				//위 부등호만 바꾸면, >오름차순, <내림차순
+					Temp = Numbers[idx];
+					Numbers[idx] = Numbers[idx+1];
+					Numbers[idx+1] = Temp;
+				}
+				if(bubble == 0) {
+					System.out.println(Arrays.toString(Numbers)+"(내부 for" +(idx+1)+" 회전)");
+				}				
+			}			
+		}
+		//정렬 결과값 출력(아래)
+		for(int i=0;i<5;i++) {
+			System.out.print(Numbers[i] + " ");
+		}
+	}
+}
+```
+
+- 코딩테스트 2번 문제 = 선택정렬 오름차순 정렬 코딩 지난번에 사용한 Arrays클래스 sort메서드 구성 연습
+- Temp변수를 사용해서 자리를 바꾸는 것이 중요.
+- 예를들어 중복 for문에서 외부1회전(내부 for문 1회전-4회전) : 10번 반복
+- 5 4 3 2 1(원시데이터)
+- 4 5 3 2 1(내부for1회전-1번째)
+- 3 5 4 2 1(내부for2회전-2번째)
+- 2 5 4 3 1(내부for3회전-3번째)
+- 1 5 4 3 2(내부for4회전-4번째)
+- 외부2회전(2부터 4까지)
+- 1 5 4 3 2(원시데이터)
+- 1 4 5 3 2(내부for1회전-2번째)
+- 1 3 5 4 2(내부for2회전-3번째)
+- 1 2 5 4 3(내부for3회전-4번째)
+- 외부3회전
+- 1 2 5 4 3(원시데이터)
+- 1 2 4 5 3(내부for1회전-3번째)
+- 1 2 3 5 4(내부for2회전-4번째)
+- 외부4회전
+- 1 2 3 5 4(원시데이터)
+- 1 2 3 4 5(내부for1회전-4번째)
+
+
+```
 import java.util.Scanner;
 import java.util.Arrays;
 class Main {
@@ -71,7 +274,7 @@ class Main {
 		for(prev=0;prev<(n-1);prev++) {//예, 5개의 숫자를 입력하면 4번 반복합니다. 이유: 4번까지는 비교할 다른 변수값이 존재.
 			//n-1번인 이유는 비교할 다음 변수가 있기 때문.
 			for(next=(prev+1);next<n;next++) {
-				if(Numbers[prev] < Numbers[next]) {//이전 변수값이 더 크다면, 앞뒤 변수값을 자리 바꿈합니다.
+				if(Numbers[prev] > Numbers[next]) {//이전 변수값이 더 크다면, 앞뒤 변수값을 자리 바꿈합니다.
 					//위 부등호만 바꾸면, >오름차순, <내림차순
 					Temp = Numbers[prev];
 					Numbers[prev] = Numbers[next];

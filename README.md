@@ -45,7 +45,50 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - Hash해시태그=#=그물망(해시)=좌표(x,y)=(Key:Value)
 
 #### 20210719(월) 작업
-- 알고리즘 다이어그램기반으로 자바코딩테스트예정. 
+- 알고리즘 다이어그램기반으로 자바코딩테스트. 
+- 코딩테스트 2번 문제 = 오름차순 정렬 코딩 지난번에 사용한 Arrays클래스 sort메서드 구성 연습
+- Temp변수를 사용해서 자리를 바꾸는 것이 중요.
+
+```
+
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int n;//정렬할 숫자의 개수 변수생성
+		int[] Numbers;//배열변수 생성
+		int prev, next, Temp;//이전, 다음, 임시저장변수 생성
+		Scanner sc = new Scanner(System.in);//스캐너클래스를 이용해서 바이트단위(문자단위)로 키보드를 입력받음. 커서발생.
+		n = sc.nextInt();//키보드로 입력받는 내용을 변수 n에 입력.
+		//System.out.println("키보드로 입력받은 변수값은 : " +n);
+		Numbers = new int[n];
+		for(int i=0;i<n;i++) {//키보드로 정렬할 변수값을 입력받음 Numbers[]라는 배열변수에 받음
+			Numbers[i] = sc.nextInt();
+		}
+		//Arrays.sort(Numbers);
+		System.out.println("입력한 배열 값은 "+Arrays.toString(Numbers));
+		//여기서부터 소팅로직 시작
+		for(prev=0;prev<(n-1);prev++) {//예, 5개의 숫자를 입력하면 4번 반복합니다. 이유: 4번까지는 비교할 다른 변수값이 존재.
+			//n-1번인 이유는 비교할 다음 변수가 있기 때문.
+			for(next=(prev+1);next<n;next++) {
+				if(Numbers[prev] < Numbers[next]) {//이전 변수값이 더 크다면, 앞뒤 변수값을 자리 바꿈합니다.
+					//위 부등호만 바꾸면, >오름차순, <내림차순
+					Temp = Numbers[prev];
+					Numbers[prev] = Numbers[next];
+					Numbers[next] = Temp;	
+					
+				}
+			}
+		}
+	//자리바꿈 결과를 출력하는 구문. Arrays유틸클래스 사용안하고, for문 사용
+		//index개수는 5개, 0부터 시작하기 때문에 4가 index의 최대값이다.
+		for(int i=0;i<n;i++) {
+			System.out.print(Numbers[i]+ " ");
+		}
+	}
+}
+```
+
 - 코딩테스트 1번 문제 = 화폐 매수 구하기 : 입금금액이 예를들어 275723원이라면, 5만원,1만원,5천원,1천원권, 500원,100원,50,10,5... 등 지폐와 동전이 각각 몇장이 필요한지 구하는 식을 세우기.
 - 화폐가 5만원부터 시작해서 반복문을 통해 단위가 바뀌어야한다. 입력금액/UNIT 1회반복 할때마다 UNIT이라는 화폐단위가 변경되어야한다. 화폐단위(UNIT)변수가 바뀌는 순서 로직(아래)
 - SW=0 : UNIT/5(5만원권이라) = 5만, 5천, 5백, 5십, 5원
@@ -87,7 +130,7 @@ class Main {
 
 - 빅O 시간복잡도 : 예를들어 for문이 1개있으면  Big O(N) = N
 - 중복 for문이면 , Big O(N) = N^2
-- for(i=1, i==3, i++) { for(i=1, i==3, i++) {구현로직}}
+- for(i=1, i=3, i++) { for(ii=1, ii=3, ii++) {구현로직}}
 - 위 중복for문은 시간복잡도가 O(N^2) 즉, 3*3 = 9이다.
 - 빅O는 프로그램성능을 측정하는 단위로 표기사용한다. 되도록 시간복잡도가 적은 방향으로 코딩해야한다. 
 

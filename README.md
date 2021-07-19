@@ -46,6 +46,50 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 
 #### 20210719(월) 작업
 - 알고리즘 다이어그램기반으로 자바코딩테스트예정. 
+- 코딩테스트 1번 문제 = 화폐 매수 구하기 : 입금금액이 예를들어 275723원이라면, 5만원,1만원,5천원,1천원권, 500원,100원,50,10,5... 등 지폐와 동전이 각각 몇장이 필요한지 구하는 식을 세우기.
+- 화폐가 5만원부터 시작해서 반복문을 통해 단위가 바뀌어야한다. 입력금액/UNIT 1회반복 할때마다 UNIT이라는 화폐단위가 변경되어야한다. 화폐단위(UNIT)변수가 바뀌는 순서 로직(아래)
+- SW=0 : UNIT/5(5만원권이라) = 5만, 5천, 5백, 5십, 5원
+- SW=1 : UNIT/2(1만원권이라) = 1만, 1천, 1백, 1십, 1원 끝
+- 스위치 변수를 써서 화폐단위변수를 바꿔 계산함. 그리고 반복문을 적용시킨다. 
+- 스위치 변수 사용 코딩 테스트01소스(아래).
+
+```
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));//문자를 입력할 수 있는 환경을 준비해줌. 커서가 입력발생.
+		int UNIT = 50000;//화폐의 최고단위 금액 지정, 초기화폐단위 설정
+		int NUM = 0;//단위화폐의 매수 : (입력금액/단위금액) = 단위금액의 화폐매수
+		int SW = 0;//스위치변수=플래그변수
+		int MONEY = Integer.parseInt(br.readLine());
+		while(true) { //무한반복 IoT쪽에서는 while(true)문으로 외부데이터를 읽어들입니다.			
+			if(UNIT>=1) {
+				NUM = (int) MONEY/UNIT; //화폐매수는 정수로 형변환합니다. 
+				System.out.println(UNIT+ " 원의 화폐매수는 " +NUM);
+				//다음 반복을 위해서 MONEY변수 값 조정, UNIT변수값 조정
+				MONEY = MONEY - (UNIT*NUM);//277777-250000 = 27777
+				if(SW==0) {
+					UNIT = UNIT/5;//(1회전,3회전,5회전,,,)
+					SW = 1;//1회전 후 SW변수값을 1로 변경
+				} else {
+					UNIT = UNIT/2;//(2회전,4회전,,,,)
+					SW = 0;//2회전후 SW변수값을 0으로 변경
+				}				
+			} else {
+				break;//while문의 무한반복을 벗어나는 코드 stop시킴.
+			}		 
+		}
+	}
+}
+```
+
+- 빅O 시간복잡도 : 예를들어 for문이 1개있으면  Big O(N) = N
+- 중복 for문이면 , Big O(N) = N^2
+- for(i=1, i==3, i++) { for(i=1, i==3, i++) {구현로직}}
+- 위 중복for문은 시간복잡도가 O(N^2) 즉, 3*3 = 9이다.
+- 빅O는 프로그램성능을 측정하는 단위로 표기사용한다. 되도록 시간복잡도가 적은 방향으로 코딩해야한다. 
 
 
 #### 20210716(금) 작업

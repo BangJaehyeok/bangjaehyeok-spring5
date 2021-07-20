@@ -8,12 +8,13 @@
 - VS code에서 만든 UI를 JSP로 변경 한 후 스프링웹프로젝트를 진행합니다.
 - 스프링 프로젝트 순서
 1. JUnit > 마이바티스(DB핸들링) > AOP(다중게시판기능) > 페이징기능 > 검색기능 > 트랜잭션기능 (게시판삭제시 댓글과 첨부파일까지 삭제처리되게) > 첨부파일기능(파일업로드/다운로드) > 스프링시큐리티(로그인 인증/권한체크)
-2. 댓글기능(RestAPI-백엔드,Ajax처리-프런트단) > 네이버아이디로그인(외부API사용) > 헤로쿠클라우드배포
+2. 댓글기능(RestAPI-백엔드,부메랑으로 RestAPI 테스트 진행,Ajax처리-프런트단) > 네이버아이디로그인(외부API사용) > 헤로쿠클라우드배포
 3. 문서작업(화면기획서XLS 제작, 화면설계서PPT 제작)
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()함수를 date_add(now(3)), interval 9 hour) 변경 예정.(이유는 DB서버 타임존이 미국이기 때문) 
+- 알고리즘 다이어그램 기반으로 자바코딩테스트 작업 10개 문제.
 
 #### 데이터의 이동
-- VO클래스의 이동 : 매퍼쿼리<->DAO<->Service<->Controller<->jsp(뷰)
+- VO클래스의 이동 : 매퍼쿼리<->DAO(M)<->Service<->Controller(C)<->jsp(V)
 
 #### 변수값(데이터) ReplyVO데이터클래스를 기준으로
 - JSON데이터 : 크롬에서 부메랑으로  List<ReplyVO>형태의 데이터확인
@@ -44,6 +45,202 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - 위 HashMap구조 : Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그=#=그물망(해시)=좌표(x,y)=(Key:Value)
 
+#### 20210720(화) 작업
+- 알고리즘 다이어그램기반으로 자바코딩테스트.
+- 코딩테스트 8번테스트 : 투표에서 최다득표자 구하기
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	//스태틱 클래스,메서드,변수 : 객체로 생성을 하지 않아도 실행이 되는 메모리영역에 있다.
+	public static void main(String[] args) {
+		int n, Top=0, Max=0, MaxCnt=0;
+		int[] VoteIndex, VoteCnt;
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		VoteIndex = new int[n];
+		for(int i=0;i<n;i++) {
+			VoteIndex[i] = sc.nextInt();
+			if(VoteIndex[i] > Max) { //최고값을 구하는 간단한 로직
+				Max = VoteIndex[i];
+			}
+		}//키보드로 입력한 값중 제일 큰 값이 Max변수 남게됩니다.
+		VoteCnt = new int[Max+1];//투표한 값을 인덱스로 사용한 변수 생성(Max+1는 Out Of Bound 에러를 방지하기 위해서)
+		for(int i=0;i<n;i++) {
+			VoteCnt[VoteIndex[i]] = VoteCnt[VoteIndex[i]] + 1;//여기서 투표한 횟수가 계산이 됩니다.
+			System.out.println("VoteIndex[" + VoteIndex[i] + "]일때 해당 VoteCnt["+VoteIndex[i]+"]값은 " + VoteCnt[VoteIndex[i]]);
+		}
+		for(int i=0; i<Max+1; i++) { //MaxCnt, Top 구하는 for문 로직
+			if(VoteCnt[i] > MaxCnt) {
+				MaxCnt = VoteCnt[i]; //최다 선택한 값의 개수
+				Top = i; //최다 선택한 값
+			}
+		}
+		System.out.println("최다 선택값 : " + Top + " 선택한 횟수는 " + MaxCnt);
+	}
+}
+```
+
+- 코딩테스트 7번테스트 : 배열 안의 여러 무작위 수들을 비교해서 순위를 매기는 코딩
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	public static void main(String[] args) {
+		int n;
+		int[] Score;
+		int[] Rank;
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		Score = new int[n];
+		Rank = new int[n];
+		for(int i=0;i<n;i++) {
+			Score[i] = sc.nextInt();
+		}
+		System.out.println("입력한 점수배열은 " + Arrays.toString(Score));
+		for(int i=0;i<n;i++) {
+			for(int comp=0;comp<n;comp++) {
+				if(Score[i] < Score[comp]) {//내부 for문에서 Score[i]기준값, Score[comp]비교값 반복시 변화됨.
+					Rank[i] = Rank[i] + 1;//기준값과 비교해서랭크를 올리면 등수가 낮아짐.
+				}
+			}
+			//Rank[i] = Rank[i]+1;//인덱스가 0부터 시작해서 이 코드를 추가하면 등수가 0등이 아닌 1등부터 나온다.
+		}
+		for(int i=0;i<n;i++) {
+			System.out.println((i+1)+" 번째 학생의 점수는 "+Score[i]+ " 등수는 "+(Rank[i]+1));
+		}
+	}
+}
+```
+
+- 코딩테스트 9번테스트 - 카카오 코딩테스트 문제
+- 작업하는 소스코드 예를들면, $(document).ready(function(){}}));
+- 위 경우처럼 소스에서 짝이 안맞는 (),{} 기호 있으면 찾아서 짝이 맞게 고치는 솔루션을 만들어라.
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	static String endString = "";
+	static String w,r;
+	
+	public static int getBalancedIndex(String w) {
+		int index = 0;
+		int balanceCount = 0;
+		for(int i=0;i<w.length();i++) {
+			String tmpChar = w.substring(i,i+1);//입력한 문자열에서 1개의 문자를 뽑아내는 명령
+			if("(".equals(tmpChar)) {
+				balanceCount++;
+			}else if(")".equals(tmpChar)){
+				balanceCount--;
+			}
+			if(balanceCount==0) {
+				index = i;//반복한 횟수
+				break;//for문을 중지하고 index가지고, 다음으로 진행
+			}
+		}
+		return index;
+	}
+	
+	public static boolean isValidString(String u) {
+		int balanceCount = 0;
+		for(int i=0;i<u.length();i++) {
+			String tmpChar = u.substring(i, i+1);
+			if("(".equals(tmpChar)) {
+				balanceCount++;
+			}else if(")".equals(tmpChar)) {
+				balanceCount--;
+			}
+			if(balanceCount < 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static String reArrange(String u) {
+		String arrangeString = "";
+		for(int i=1;i<u.length()-1;i++) {
+			String tmpChar = u.substring(i,i+1);//1글자만 뽑는 명령
+			if("(".equals(tmpChar)) {
+				arrangeString += ")";
+			}else if(")".equals(tmpChar)){
+				arrangeString += "(";
+			}
+		}
+		return arrangeString;
+	}
+	
+	public static String recursive(String w) {
+		if(w.isEmpty()) {
+			return w + endString;
+		}
+		int balancedIndex = getBalancedIndex(w);
+		String u = w.substring(0, balancedIndex+1);//짝이 맞춰진 문자열.
+		String v = w.substring(balancedIndex+1);//짝이 맞지 않는 나머지 문자열.
+		boolean isValidCheck = isValidString(u);
+		//System.out.println(isValidCheck);
+		if(isValidCheck==true) {
+			if("(".equals(u)) {
+				endString += ")";//endString = endString + ")"
+			}
+			u += recursive(v);//u = u+recursive(v); 1회전 u , 2회전 u=v
+			return u;			
+		}else{
+			String createString = "(";
+			createString += recursive(v);
+			createString += ")";
+			createString += reArrange(u);
+			return createString;
+		}
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		w = sc.nextLine();
+		r = recursive(w);
+		if(w.equals(r)) {
+			System.out.println("올바른 괄호 문자열 입니다." + r);
+		}else{
+			System.out.println("잘못된 괄호 문자열 입니다. 입력값은 "+w+" 수정값은 "+r);
+		}
+	}
+}
+```
+
+- 코딩테스트 6번 재귀함수(recursive)
+- 재귀함수 : 메서드 안에서 자기 자신을 호출하는 함수.
+
+```
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+	static long Factorial = 1;//메서드변수를 클래스변수(멤버변수)로 변경
+	public static long fact(int n) {
+		//예: 5! = 5*4*3*2*1
+		if(n==1) {
+			return Factorial;
+		}
+		Factorial = Factorial * n;		
+		System.out.println(n+" 재귀함수가 반복하는 부분값은 "+Factorial);
+		n = n-1; //fact(n) : 5->4->3->2->1
+		return fact(n);//재귀함수 만드는 방식 -> 중복for반복문을 대체하게됨.
+	}
+	public static void main(String[] args) {
+		int n;//n팩토리얼에서 n을 구하는 변수
+		
+		long Result;
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();//sc객체를 이용해서 n값을 입력받습니다.
+		Result = fact(n);//fact 매개변수로 n을 받아서 결과를 리턴받습니다.
+		System.out.println(n + "팩토리얼의 값은 " + Result);
+	}	
+}
+```
+
+
 #### 20210719(월) 작업
 - 알고리즘 다이어그램기반으로 자바코딩테스트.
 - 코딩테스트 10번 문제 = 로또번호가 올바른 번호인지 확인. 조건1,2,3을 모두 만족해야 인정됨.
@@ -64,8 +261,17 @@ class Main {
 			}
 		}
 		//조건2 6개의 숫자범위는 1~45까지의 숫자만 인정됨.
-		
+		for(int i=0;i<n;i++) {
+			if(Lotto[i] < 1 || Lotto[i] > 45) {
+				return false;
+			}
+		}
 		//조건3 현재 로또번호가 오름차순 정렬로 되어있는지 확인하는 로직.
+		for(int i=0;i<(n-1);i++) {
+			if(Lotto[i] > Lotto[i+1]) {
+				return false;//현재 메서드를 종료하면서 return으로 false를 반환합니다.
+			}
+		}
 		return true;
 	}
 	public static void main(String[] args) {

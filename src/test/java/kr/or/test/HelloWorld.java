@@ -10,6 +10,7 @@ public class HelloWorld {
 		int[] questions= {1, 5, 4, 3, 2};
 		Arrays.sort(questions);		
 		System.out.println(Arrays.toString(questions));
-		
+		String w = "(())";
+		System.out.println(w.substring(0,1));
 	}
 }

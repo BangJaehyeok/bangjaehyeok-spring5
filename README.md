@@ -60,11 +60,49 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - JVM:Java Virtual Machine 자바가상머신. 컴공에서 머신은 하나의 프로그램이 돌아가는것. 윈도우,리눅스도 하나의 머신.
 - C언어는 a.exe를 컴파일해서 프로그램을 만들면 윈도우즈에서 바로 실행이 가능하다.
 - 그러나 java는 a.java를 컴파일해서 a.class를 만들면 이것을 윈도우즈에서 바로 인식을 못한다. 그래서 a.class를 윈도우즈에서 실행시켜주는 소프트웨어가 필요. 그것이 JVM;자바가상머신 그래서 JVM이 윈도우즈에 깔려있어야한다. JRE폴더의 java.exe가 JVM이다.
--JVM=JRM(Java Runtime Environment)
--JDK(Java Developtment Kit) : a.java와 a.class사이의 변환작업을 하는 역할.
+- JVM=JRM(Java Runtime Environment)
+- JDK(Java Development Kit) : a.java와 a.class사이의 변환작업을 하는 역할.
+- 자바로 작업 = 벽돌하나하나 일일히 쌓아올리는것.
+- 프레임워크 = 벽을미리만들어서 짜맞추기만하면됨. 그래서 핵심은 자바지만 필요할때마다 프레임워크에서 기능을 가져다가 쓴다. ex)로그인, 회원가입할때마다 프레임워크를 불러와서 작업을 간편하게함.
+- Eclipse = IDE(Integrated Development Environment;통합개발환경) Editor+Code Assistance(Debugger/Running)+다중언어지원
+- Editor에서 coding -> save -> compile(실행파일로 변환) -> Launching(실행)
+
+- 변수(뭘선언?왜선언?어디선언?등등)
+- 연산자(사칙연산,논리연산,비교연산)
+- 제어문(if-while-for-switch)
+- 함수
+- 클래스
+- 상속(inheritance)
+- 다형성(polymorphism)
+
+=================================================
+- java프로그램 작성규칙
+- java file name과 그 내부의 class name은 같아야한다.
+- java프로그램은 하나의 Java Project와 최소한 하나 이상의 class를 하나 가지고있는 java file(including a class)로 구성된다.
+- java program = java project
+- 오직 하나의 java file만 public static void main()이라는 메소드를 포함해야한다.
+
+-1. 변수
+- 변수 : 컴퓨터의 메모리 공간(램 안에 조그맣게 차지함), 데이터를 보관(생성/조회/수정/삭제 = CRUD)
+- 변수명 : 특정 메모리공간에 이름을 붙여 구분함.
+- 데이터타입 : 숫자(정수,실수), 문자열에 따라서 변수의 데이터타입이 각각 달라진다. 실수형변수, 정수형 변수 등등
+- 변수값이 무엇이 되었든 상관없이 혹은 몰라도 타입형을 정해줘야함.
+- ex)type 변수명;
+- int x; (정수형) String y;(문자형) float z(실수형);
+- 자바의 약점 : 쓸지 안쓸지 모를 변수들을 미리 선언해줘야할 때가 있다. 
+- int x=5;
+- 메모리의 특정한 공간을 할당받고 거기들어갈 데이터는 정수라고 미리 정하고 x라고 부른다. 그 x라는 메모리 공간에 5라는 정수값을 저장한다. 변수명 x를 주소라고 생각해보자. '='은 같다가 아니다. 절대 아니다. 오른쪽 값을 왼쪽으로 저장한다라고 생각하자. '=': 배정(대입) 연산자
+- int x;//변수 선언(정의)
+- x=5;//실행
+- int x=5;//선언&실행(동시에) 자바는 변수 선언과 동시에 초기화할것.(권장)
+- 1.첫글자 : 알파벳,_,$ 꼭 3개중 하나여야한다. 숫자거나 다른문자 안됨.
+- int x9(O), $i(O), _j(O), 9i(X), iiii_;(O) __(O);
+
+
+
+================================================
 
 - 집에서 C드라이브 -> program file-> java안에 설치하기
-
 
 
 #### 20210720(화) 작업

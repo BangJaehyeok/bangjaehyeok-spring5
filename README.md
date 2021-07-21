@@ -41,9 +41,31 @@
 - ArrayList 클래스형 데이터 : List<ReplyVO> replyList = new ArrayList(); DB쿼리결과
 - 위 ArrayList구조: List(인터페이스) 안에 ArrayList(임플리먼트클래스)
 ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
--HashMap클래스형 데이터 : Map<String,Object> mapData = new HashMap<String,Object>();
+- HashMap클래스형 데이터 : Map<String,Object> mapData = new HashMap<String,Object>();
 - 위 HashMap구조 : Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그=#=그물망(해시)=좌표(x,y)=(Key:Value)
+
+#### 20210721(수) 작업
+- 앞으로 '이것이 자바다'책 챙겨오기
+- 프로그래밍 언어의 조건 1.변수사용 2.제어문 3.함수
+- 배우는 언어 : 자바, 자바스크립트, 파이썬, SQL
+- 자바스크립트 : 웹브라우저에서만 작동(run only on the web browser)
+- 자바,파이썬 : stand-alone, 단독으로 작동(다른환경의 도움 필요없음. 리눅스,윈도우 등 돌아감)
+- 웹서버(네이버,구글)->인터넷->클라이언트(클라이언트 안에는 웹브라우저가 작동하고있다) : Two-Tier(2층구조) 서버-클라이언트
+- 웹브라우저에서 돌아가는 언어는 자바스크립트 딱 하나. 그것을 편하게쓰는것이 jQuery이다. 자바스크립트를 편하게 쓰게하는 라이브러리.
+- 클라이언트쪽에서 코딩하는데 쓰는 프레임워크 React.js,Vue.js
+- 웹브라우저의 UI를 담당 : HTML/CSS
+- 서버는 자바,파이썬,PHP,Node.js,C/C++등등 구현언어들이 많다.
+- 자바:Spring, 파이썬:Django/TensorFlow/Flask PHP:Laravel
+- JVM:Java Virtual Machine 자바가상머신. 컴공에서 머신은 하나의 프로그램이 돌아가는것. 윈도우,리눅스도 하나의 머신.
+- C언어는 a.exe를 컴파일해서 프로그램을 만들면 윈도우즈에서 바로 실행이 가능하다.
+- 그러나 java는 a.java를 컴파일해서 a.class를 만들면 이것을 윈도우즈에서 바로 인식을 못한다. 그래서 a.class를 윈도우즈에서 실행시켜주는 소프트웨어가 필요. 그것이 JVM;자바가상머신 그래서 JVM이 윈도우즈에 깔려있어야한다. JRE폴더의 java.exe가 JVM이다.
+-JVM=JRM(Java Runtime Environment)
+-JDK(Java Developtment Kit) : a.java와 a.class사이의 변환작업을 하는 역할.
+
+- 집에서 C드라이브 -> program file-> java안에 설치하기
+
+
 
 #### 20210720(화) 작업
 - 알고리즘 다이어그램기반으로 자바코딩테스트.

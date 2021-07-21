@@ -97,6 +97,8 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - int x=5;//선언&실행(동시에) 자바는 변수 선언과 동시에 초기화할것.(권장)
 - 1.첫글자 : 알파벳,_,$ 꼭 3개중 하나여야한다. 숫자거나 다른문자 안됨.
 - int x9(O), $i(O), _j(O), 9i(X), iiii_;(O) __(O);
+- 카멜표기법 : 처음은 알파벳 소문자 그리고 다음단어 첫번째글자는 대문자
+- ex)firstName, maxSpeed, studentRealAge 되도록이면 짧고 간단명료하게.
 
 
 

@@ -99,7 +99,8 @@ ex)IF_BoardDAO-인터페이스 , BoardDAOImpl-임플리먼트
 - int x9(O), $i(O), _j(O), 9i(X), iiii_;(O) __(O);
 - 카멜표기법 : 처음은 알파벳 소문자 그리고 다음단어 첫번째글자는 대문자
 - ex)firstName, maxSpeed, studentRealAge 되도록이면 짧고 간단명료하게.
-
+- String[] save_file_names = new String[12];
+- save_file_names라는 배열공간에서 문자12개 길이만큼의 공간이 배정됨.
 
 
 ================================================
